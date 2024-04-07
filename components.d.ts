@@ -7,13 +7,30 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AdCarousel: typeof import('./src/components/AdCarousel/index.vue')['default']
+    CityBar: typeof import('./src/components/CityBar/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElTag: typeof import('element-plus/es')['ElTag']
+    FeaturedJobs: typeof import('./src/components/FeaturedJobs/index.vue')['default']
+    Footer: typeof import('./src/components/Footer/index.vue')['default']
+    HeadNav: typeof import('./src/components/HeadNav/index.vue')['default']
+    HotEnterPriseList: typeof import('./src/components/HotEnterPriseList/index.vue')['default']
+    HotEnterprisePositions: typeof import('./src/components/HotEnterprisePositions/index.vue')['default']
+    HotPositionsTags: typeof import('./src/components/HotPositionsTags/index.vue')['default']
+    IndustryNav: typeof import('./src/components/IndustryNav/index.vue')['default']
+    JobAddress: typeof import('./src/components/JobAddress/index.vue')['default']
+    JobInfo: typeof import('./src/components/JobInfo/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Sidebar: typeof import('./src/components/Sidebar/index.vue')['default']
+    SafeTips: typeof import('./src/components/SafeTips/index.vue')['default']
+    SearchBar: typeof import('./src/components/SearchBar/index.vue')['default']
+    SideBar: typeof import('./src/components/SideBar/index.vue')['default']
+    Tabs: typeof import('./src/components/Tabs/index.vue')['default']
+    WorkPlaceDialog: typeof import('./src/components/WorkPlaceDialog/index.vue')['default']
   }
 }

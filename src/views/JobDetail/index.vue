@@ -9,23 +9,14 @@
             </div>
         </div>
         <div class="content">
-            <CityBar />
-            <div class="industry-ad-container">
-                <div class="industry-container">
-                    <IndustryNav />
-                </div>
-                <div class="ad-container">
-                    <AdCarousel />
-                </div>
+            <div class="job-info-container">
+                <JobInfo />
             </div>
-            <div class="featured-jobs-container">
-                <FeaturedJobs />
+            <div class="job-address-container">
+                <JobAddress />
             </div>
-            <div class="hot-enterprise-positions-container">
-                <HotEnterPrisePositions />
-            </div>
-            <div class="hot-enterprises-container">
-                <HotEnterPriseList />
+            <div class="job-safe-tips-container">
+                <SafeTips />
             </div>
         </div>
         <div class="footer">
@@ -40,14 +31,11 @@
 <script setup lang="ts">
 import HeadNav from "../../components/HeadNav/index.vue";
 import SearchBar from "../../components/SearchBar/index.vue";
+import JobInfo from "../../components/JobInfo/index.vue";
+import JobAddress from "../../components/JobAddress/index.vue";
+import SafeTips from "../../components/SafeTips/index.vue";
 import Footer from "../../components/Footer/index.vue";
-import CityBar from "../../components/CityBar/index.vue";
-import IndustryNav from "../../components/IndustryNav/index.vue";
-import AdCarousel from "../../components/AdCarousel/index.vue";
-import HotEnterPriseList from "../../components/HotEnterPriseList/index.vue";
 import SideBar from "../../components/SideBar/index.vue";
-import FeaturedJobs from "../../components/FeaturedJobs/index.vue";
-import HotEnterPrisePositions from "../../components/HotEnterprisePositions/index.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 
 const isScroll = ref<boolean>(false);
@@ -55,10 +43,8 @@ const containerRef = ref<HTMLElement | null>(null);
 
 const handleScroll = () => {
     if (containerRef.value) {
-        // 获取container的scrollTop值
         const top = containerRef.value.scrollTop;
-        // 假设超过120px就固定
-        isScroll.value = top > 240;
+        isScroll.value = top > 100;
     }
 };
 
@@ -103,34 +89,19 @@ onUnmounted(() => {
         width: 100%;
         background: transparent;
 
-        .industry-ad-container {
+        .job-info-container {
             display: flex;
             max-width: 1200px;
             width: 100%;
-            justify-content: space-between;
-
-            .ad-container {
-                flex: 1;
-                margin-left: 20px;
-                box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-                border-radius: 12px;
-                overflow: hidden;
-            }
         }
 
-        .featured-jobs-container {
+        .job-address-container {
             max-width: 1200px;
             width: 100%;
             margin-top: 30px;
         }
 
-        .hot-enterprises-container {
-            max-width: 1200px;
-            width: 100%;
-            margin-top: 30px;
-        }
-
-        .hot-enterprise-positions-container {
+        .job-safe-tips-container {
             max-width: 1200px;
             width: 100%;
             margin-top: 30px;

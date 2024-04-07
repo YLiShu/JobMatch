@@ -1,53 +1,62 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+    width: 0.02667rem;
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 1200px;
+    min-height: 100vh;
+}
+
+ol,
+ul {
+    list-style: none;
 }
 
 button {
-  font-weight: bolder;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  cursor: pointer;
+    font-weight: bolder;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    cursor: pointer;
 }
 
 .el-loading-spinner .circular {
-  display: none !important;
+    display: none !important;
 }
 
 .el-loading-spinner {
-  position: relative !important;
-  background: url('./assets/loading.gif') no-repeat center center;
-  background-size: 200px 150px;
-  width: 100%;
-  height: 100%;
-  left: 50% !important;
-  top: 50% !important;
-  transform: translate(-50%, -50%) !important;
+    position: relative !important;
+    background: url("./assets/loading.gif") no-repeat center center;
+    background-size: 200px 150px;
+    width: 100%;
+    height: 100%;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
 }
 
 #app {
-  height: 100vh;
-  min-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  box-sizing: border-box;
+    height: 100vh;
+    min-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
 }
