@@ -55,9 +55,7 @@ const containerRef = ref<HTMLElement | null>(null);
 
 const handleScroll = () => {
     if (containerRef.value) {
-        // 获取container的scrollTop值
         const top = containerRef.value.scrollTop;
-        // 假设超过120px就固定
         isScroll.value = top > 240;
     }
 };
