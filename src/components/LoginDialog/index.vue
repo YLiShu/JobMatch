@@ -1,9 +1,21 @@
 <template>
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="left">
-                    <div class="brand">
+    <div class="login-dialog">
+        <el-dialog
+            destroy-on-close
+            :model-value="isShowLoginDialog"
+            :show-close="false"
+            align-center
+            @close="closeDialog"
+        >
+            <template #header>
+                <button type="button" class="close-btn" @click="closeDialog">
+                    ✖️
+                </button>
+            </template>
+
+            <div class="login-content">
+                <div class="login-title">
+                    <div class="login-logo">
                         <svg
                             width="80"
                             height="80"
@@ -111,15 +123,6 @@
                                 </g>
                             </g>
                             <g
-                                transform="matrix(1.8051647900453711,0,0,1.8051647900453711,75.76774282957363,51.48786357833994)"
-                                fill="#00cdcb"
-                            >
-                                <path
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    d="M65.532,53.661c2.473-2.341,2.081-5.645-0.869-7.341L59.1,43.118c-2.95-1.697-4.723-5.797-3.941-9.109l6.699-28.398  c0.781-3.312-0.602-4.108-3.073-1.767L24.467,36.339c-2.472,2.341-2.08,5.644,0.87,7.342l5.562,3.2  c2.949,1.698,4.724,5.798,3.943,9.109l-6.701,28.398c-0.78,3.312,0.602,4.107,3.074,1.767L65.532,53.661z"
-                                ></path>
-                            </g>
-                            <g
                                 transform="matrix(0.8875232601420516,0,0,0.8875232601420516,55.526100416913565,219.81209153612852)"
                                 fill="#00cdcb"
                             >
@@ -128,305 +131,251 @@
                                 ></path>
                             </g>
                         </svg>
-                        <h1 class="footer-title">JobMatch</h1>
-                        <p class="slogan">连接职业生涯，成就未来。</p>
-                        <p>&copy; 2024 JobMatch。保留所有权利。</p>
                     </div>
+                    <span>登录</span>
                 </div>
-                <div class="right">
-                    <div class="footer-section">
-                        <h4 class="section-title">公司信息</h4>
-                        <ul class="section-list">
-                            <li><a href="#about-us">关于我们</a></li>
-                            <li><a href="#career">加入我们</a></li>
-                            <li><a href="#press">新闻中心</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h4 class="section-title">客户服务</h4>
-                        <ul class="section-list">
-                            <li><a href="#help-center">帮助中心</a></li>
-                            <li><a href="#feedback">意见反馈</a></li>
-                            <li><a href="#community-suppport">社区支持</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h4 class="section-title">合作伙伴</h4>
-                        <ul class="section-list">
-                            <li><a href="#partnerships">伙伴合作</a></li>
-                            <li><a href="#affiliate">加盟计划</a></li>
-                            <li><a href="#advertising">广告服务</a></li>
-                        </ul>
-                    </div>
-                    <div class="social-media">
-                        <h4 class="section-title">关注我们</h4>
-                        <div class="social-links">
-                            <a href="http://facebook.com" target="_blank">
-                                <svg
-                                    t="1712556775563"
-                                    class="icon"
-                                    viewBox="0 0 1024 1024"
-                                    version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    p-id="14706"
-                                    width="24"
-                                    height="24"
+                <el-form
+                    ref="ruleFormRef"
+                    :model="loginForm"
+                    :rules="loginRules"
+                    size="large"
+                    class="login-form"
+                >
+                    <el-form-item prop="username">
+                        <el-input
+                            v-model="loginForm.username"
+                            placeholder="请输入账号"
+                            clearable
+                            @clear="clearPassword"
+                        >
+                            <template #prefix>
+                                <el-icon class="icon"><User /></el-icon>
+                            </template>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input
+                            v-model="loginForm.password"
+                            :type="passwordType"
+                            placeholder="请输入密码"
+                            clearable
+                            @keyup.enter="handleLogin"
+                        >
+                            <template #prefix>
+                                <el-icon class="icon"><Lock /></el-icon>
+                            </template>
+                            <template #suffix>
+                                <el-icon
+                                    class="toggle-password"
+                                    @click="showPwd"
+                                    :color="'#ddd'"
                                 >
-                                    <path
-                                        d="M985.742 749.936c0 130.864-106.178 236.964-237.17 236.964H274.298c-130.954 0-237.092-106.102-237.092-236.964V276.018c0-130.902 106.138-236.966 237.092-236.966h474.274c130.992 0 237.17 106.064 237.17 236.966v473.918z"
-                                        fill="#235B9E"
-                                        p-id="14707"
-                                    ></path>
-                                    <path
-                                        d="M432.434 809.176h118.568V512.984h87.996l10.808-118.482h-94.252V347.14c0-23.102 15.398-28.464 26.208-28.464h66.542v-101.512l-91.59-0.384c-101.662 0-124.782 75.71-124.782 124.19v53.534H373.14v118.482h59.294v296.19z"
-                                        fill="#FFFFFF"
-                                        p-id="14708"
-                                    ></path>
-                                    <path
-                                        d="M432.434 809.176h118.568V512.984h87.996l10.808-118.482h-94.252V347.14c0-23.102 15.398-28.464 26.208-28.464h66.542v-101.512l-91.59-0.384c-101.662 0-124.782 75.71-124.782 124.19v53.534H373.14v118.482h59.294v296.19z"
-                                        fill="#FFFFFF"
-                                        p-id="14709"
-                                    ></path>
-                                    <path
-                                        d="M556.712 216.778l91.59 0.384v101.512H581.76c-10.808 0-26.208 5.362-26.208 28.464v47.362h94.252l-10.808 118.482H551v296.192h-118.568V512.982H373.14V394.5h58.792v-53.534c0-48.478 23.118-124.188 124.78-124.188m0-19.754c-64.452 0-98.87 28.234-116.394 51.92-24.486 33.094-28.142 71.862-28.142 92.024v33.78H373.14c-10.91 0-19.754 8.844-19.754 19.754v118.482c0 10.91 8.844 19.754 19.754 19.754h39.54v276.438c0 10.91 8.844 19.754 19.754 19.754h118.568c10.91 0 19.754-8.844 19.754-19.754V532.738h68.242a19.756 19.756 0 0 0 19.672-17.96l10.808-118.482a19.76 19.76 0 0 0-19.672-21.55h-74.498v-27.608c0-4.532 0.948-6.908 1.758-7.568 0.7-0.568 2.422-1.142 4.696-1.142h66.542c10.91 0 19.754-8.844 19.754-19.754v-101.512a19.752 19.752 0 0 0-19.67-19.754l-91.59-0.384h-0.086z"
-                                        fill="#1A4477"
-                                        p-id="14710"
-                                    ></path>
-                                    <path
-                                        d="M728.078 956.122H294.83c-124.896 0-226.506-101.636-226.506-226.566V296.358c0-124.908 101.61-226.526 226.506-226.526h433.248c124.918 0 226.544 101.62 226.544 226.526v433.198c0.002 124.928-101.626 226.566-226.544 226.566zM294.83 89.636c-113.976 0-206.702 92.734-206.702 206.72v433.198c0 114.008 92.726 206.762 206.702 206.762h433.248c113.996 0 206.74-92.754 206.74-206.762V296.358c0-113.986-92.744-206.72-206.74-206.72H294.83z"
-                                        fill="#1A4477"
-                                        p-id="14711"
-                                    ></path>
-                                </svg>
-                            </a>
-                            <a href="http://twitter.com" target="_blank">
-                                <svg
-                                    t="1712556906777"
-                                    class="icon"
-                                    viewBox="0 0 1024 1024"
-                                    version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    p-id="24274"
-                                    width="24"
-                                    height="24"
-                                >
-                                    <path
-                                        d="M544.059897 959.266898h-64.949141c-228.633593 0-415.697442-187.063849-415.697442-415.697442v-64.949141c0-228.633593 187.063849-415.697442 415.697442-415.697442h64.949141c228.633593 0 415.697442 187.063849 415.697442 415.697442v64.949141C959.756315 772.203049 772.692466 959.266898 544.059897 959.266898z"
-                                        fill="#5EAADE"
-                                        p-id="24275"
-                                    ></path>
-                                    <path
-                                        d="M749.736957 364.631161c-17.594445 7.805078-36.512775 13.088326-56.37103 15.458621 20.268834-12.147375 35.835986-31.387205 43.155743-54.311997-18.965428 11.256595-39.963268 19.422081-62.321852 23.821716-17.89342-19.082151-43.405571-30.99608-71.636137-30.996081-54.19937 0-98.136337 43.94311-98.136337 98.156815 0 7.694498 0.861088 15.190363 2.543331 22.372918-81.569872-4.09247-153.87563-43.174172-202.283904-102.558497-8.442958 14.498216-13.284912 31.356488-13.284912 49.348201 0 34.049306 17.326187 64.096245 43.656422 81.696834-16.086262-0.509895-31.221335-4.923865-44.446861-12.276385-0.010239 0.409554-0.010239 0.820132-0.010239 1.239925 0 47.557426 33.822004 87.22991 78.719375 96.248292-8.234086 2.242309-16.905371 3.448446-25.851057 3.448446-6.331707 0-12.475019-0.616379-18.465771-1.76825 12.48321 39.00184 48.725679 67.379845 91.672548 68.170285-33.582415 26.334331-75.897547 42.024349-121.884333 42.024349-7.923849 0-15.736094-0.460748-23.408066-1.370983 43.434239 27.844561 95.01451 44.104884 150.443566 44.104885 180.504839 0 279.220695-149.576335 279.220696-279.294415 0-4.262435-0.090102-8.494153-0.278497-12.707441C719.948038 401.602637 736.583103 384.322524 749.736957 364.631161z"
-                                        fill="#FFFFFF"
-                                        p-id="24276"
-                                    ></path>
-                                </svg>
-                            </a>
-                            <a href="http://instagram.com" target="_blank">
-                                <svg
-                                    t="1712556951146"
-                                    class="icon"
-                                    viewBox="0 0 1024 1024"
-                                    version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    p-id="28011"
-                                    width="24"
-                                    height="24"
-                                >
-                                    <path
-                                        d="M985.742 749.896c0 130.902-106.178 237.004-237.13 237.004H274.336c-130.994 0-237.132-106.102-237.132-237.004V276.018c0-130.902 106.138-236.966 237.132-236.966h474.274c130.954 0 237.13 106.064 237.13 236.966v473.878z"
-                                        fill="#2D80A6"
-                                        p-id="28012"
-                                    ></path>
-                                    <path
-                                        d="M702.684 512.992c0-105.602-85.646-191.108-191.204-191.108-105.676 0-191.212 85.506-191.212 191.108 0 105.532 85.538 190.998 191.212 190.998 105.558 0 191.204-85.466 191.204-190.998z m-3.668-217.102c-17.058 0-30.762 13.884-30.762 30.778a30.66 30.66 0 0 0 30.762 30.738c16.942 0 30.836-13.692 30.836-30.738 0-16.894-13.894-30.778-30.836-30.778z m-343.802-44.124h312.5c57.932 0 105.134 47.286 105.134 104.944v312.454c0 57.812-47.204 104.982-105.134 104.982h-312.5c-57.836 0-105.136-47.17-105.136-104.982V356.71c0.002-57.658 47.3-104.944 105.136-104.944z m312.5-35.018h-312.5c-77.056 0-140.162 63.058-140.162 139.962v312.454c0 77.098 63.106 140.042 140.162 140.042h312.5c77.19 0 140.18-62.944 140.18-140.042V356.71c0-76.904-62.99-139.962-140.18-139.962zM360 512.992c0-83.618 67.842-151.458 151.48-151.458 83.672 0 151.45 67.842 151.45 151.458 0 83.546-67.778 151.35-151.45 151.35-83.638 0-151.48-67.802-151.48-151.35z"
-                                        fill="#FFFFFF"
-                                        p-id="28013"
-                                    ></path>
-                                    <path
-                                        d="M667.714 216.748c77.19 0 140.18 63.058 140.18 139.962v312.454c0 77.098-62.99 140.042-140.18 140.042h-312.5c-77.056 0-140.162-62.944-140.162-140.042V356.71c0-76.904 63.106-139.962 140.162-139.962h312.5m-312.5 557.398h312.5c57.932 0 105.134-47.17 105.134-104.982V356.71c0-57.658-47.204-104.944-105.134-104.944h-312.5c-57.836 0-105.136 47.286-105.136 104.944v312.454c0.002 57.812 47.3 104.982 105.136 104.982m343.802-478.256c16.942 0 30.836 13.884 30.836 30.778 0 17.046-13.894 30.738-30.836 30.738a30.66 30.66 0 0 1-30.762-30.738c0-16.894 13.704-30.778 30.762-30.778m-187.536 25.994c105.558 0 191.204 85.506 191.204 191.108 0 105.532-85.646 190.998-191.204 190.998-105.676 0-191.212-85.466-191.212-190.998-0.002-105.602 85.536-191.108 191.212-191.108m0 342.458c83.672 0 151.45-67.802 151.45-151.35 0-83.618-67.778-151.458-151.45-151.458-83.638 0-151.48 67.842-151.48 151.458 0 83.548 67.842 151.35 151.48 151.35m156.234-467.348h-312.5c-42.536 0-82.644 16.664-112.938 46.92-30.294 30.258-46.978 70.316-46.978 112.796v312.454c0 88.112 71.738 159.794 159.916 159.794h312.5c88.188 0 159.934-71.684 159.934-159.794V356.71c0-88.068-71.746-159.716-159.934-159.716z m-312.5 557.398c-47.08 0-85.382-38.234-85.382-85.228V356.71c0-46.974 38.302-85.19 85.382-85.19h312.5c9.818 0 19.254 1.662 28.042 4.718-26.342 1.686-47.256 23.66-47.256 50.428 0 27.842 22.662 50.492 50.516 50.492 26.182 0 47.784-19.954 50.338-45.424a84.772 84.772 0 0 1 3.742 24.976v312.454c0 46.994-38.302 85.228-85.38 85.228H355.214z m156.266-452.262c-56.382 0-109.37 21.924-149.2 61.736-39.832 39.812-61.768 92.772-61.768 149.126 0 56.322 21.938 109.256 61.77 149.048 39.832 39.79 92.818 61.704 149.196 61.704 116.324 0 210.958-94.542 210.958-210.752 0-56.342-21.952-109.304-61.808-149.128-39.842-39.81-92.812-61.734-149.148-61.734z m0 342.458c-72.634 0-131.726-59.034-131.726-131.596 0-72.622 59.092-131.706 131.726-131.706 72.618 0 131.696 59.084 131.696 131.706 0 72.562-59.078 131.596-131.696 131.596z"
-                                        fill="#174053"
-                                        p-id="28014"
-                                    ></path>
-                                    <path
-                                        d="M728.078 956.122H294.83c-124.896 0-226.506-101.636-226.506-226.566V296.358c0-124.908 101.61-226.526 226.506-226.526h433.248c124.918 0 226.544 101.62 226.544 226.526v433.198c0.002 124.928-101.626 226.566-226.544 226.566zM294.83 89.636c-113.976 0-206.702 92.734-206.702 206.72v433.198c0 114.008 92.726 206.762 206.702 206.762h433.248c113.996 0 206.74-92.754 206.74-206.762V296.358c0-113.986-92.744-206.72-206.74-206.72H294.83z"
-                                        fill="#174053"
-                                        p-id="28015"
-                                    ></path>
-                                </svg>
-                            </a>
-                            <a
-                                href="https://github.com/YLiShu/JobMatch"
-                                target="_blank"
-                            >
-                                <svg
-                                    t="1712557132588"
-                                    class="icon"
-                                    viewBox="0 0 1024 1024"
-                                    version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    p-id="37884"
-                                    width="24"
-                                    height="24"
-                                >
-                                    <path
-                                        d="M512 512m-469.333333 0a469.333333 469.333333 0 1 0 938.666666 0 469.333333 469.333333 0 1 0-938.666666 0Z"
-                                        fill="#434A54"
-                                        p-id="37885"
-                                    ></path>
-                                    <path
-                                        d="M610.688 808.149333c0-12.074667 0.426667-51.498667 0.426667-100.437333 0-34.133333-11.733333-56.448-24.832-67.84 81.493333-9.045333 167.125333-39.978667 167.125333-180.608 0-39.936-14.208-72.618667-37.674667-98.261333 3.84-9.216 16.341333-46.421333-3.584-96.853334 0 0-30.72-9.813333-100.565333 37.546667a351.658667 351.658667 0 0 0-91.733333-12.373333 350.549333 350.549333 0 0 0-91.605334 12.373333c-69.973333-47.36-100.693333-37.546667-100.693333-37.546667-19.882667 50.432-7.338667 87.637333-3.541333 96.853334a141.653333 141.653333 0 0 0-37.717334 98.261333c0 140.288 85.461333 171.690667 166.784 180.906667-10.453333 9.173333-19.968 25.301333-23.253333 48.981333-20.906667 9.386667-73.856 25.514667-106.496-30.421333 0 0-19.370667-35.157333-56.149333-37.76 0 0-35.712-0.426667-2.474667 22.272 0 0 23.978667 11.264 40.618667 53.546666 0 0 21.504 65.365333 123.349333 43.221334 0.170667 30.592 0.512 59.392 0.512 68.138666a19.968 19.968 0 0 1-2.218667 9.173334 339.925333 339.925333 0 0 0 187.904 3.114666 19.2 19.2 0 0 1-4.181333-12.288z"
-                                        fill="#FFFFFF"
-                                        p-id="37886"
-                                    ></path>
-                                    <path
-                                        d="M180.138667 843.861333A467.882667 467.882667 0 0 0 512 981.333333c259.2 0 469.333333-210.133333 469.333333-469.333333 0-129.621333-52.522667-246.954667-137.472-331.861333L180.138667 843.861333z"
-                                        fill="#231F20"
-                                        opacity=".1"
-                                        p-id="37887"
-                                    ></path>
-                                </svg>
-                            </a>
-                        </div>
+                                    <template v-if="passwordType === 'password'"
+                                        ><View
+                                    /></template>
+                                    <template v-else><Hide /></template>
+                                </el-icon>
+                            </template>
+                        </el-input>
+                    </el-form-item>
+                    <div class="agreement">
+                        <el-checkbox v-model="agreement"
+                            ><span
+                                >我已阅读并同意
+                                <a href="#" target="_blank">用户协议</a> 和
+                                <a href="#" target="_blank">隐私条款</a></span
+                            ></el-checkbox
+                        >
                     </div>
-                </div>
+                    <button class="login-btn" @click="handleLogin">登录</button>
+                </el-form>
             </div>
-            <div class="footer-bottom">
-                <div class="extra-info">
-                    <p>JobMatch 提供最佳职位匹配服务，帮助你找到理想工作。</p>
-                    <p>
-                        使用JobMatch平台即表示您同意我们的<a
-                            href="#cookie-policy"
-                            class="extra-link"
-                            >Cookie 政策</a
-                        >和<a href="#data-privacy" class="extra-link"
-                            >数据隐私政策</a
-                        >。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+        </el-dialog>
+    </div>
 </template>
+
+<script lang="ts" setup>
+import { reactive, ref } from "vue";
+import { loginRules } from "../../views/Login/utils/rule";
+import { ElMessage, type FormInstance } from "element-plus";
+import { login } from "../../api/user/index";
+
+const loading = ref(false);
+const ruleFormRef = ref<FormInstance>();
+
+const loginForm = reactive({
+    username: "",
+    password: "",
+});
+
+const agreement = ref(false);
+const passwordType = ref("password");
+
+const clearPassword = () => {
+    loginForm.password = "";
+};
+
+const handleLogin = async () => {
+    loading.value = true;
+    try {
+        await ruleFormRef.value!.validate();
+        const { data } = await login(loginForm);
+        localStorage.setItem("TOKEN_KEY", data as unknown as string);
+        ElMessage({
+            message: "登陆成功",
+            type: "success",
+        });
+    } catch (error) {
+    } finally {
+        loading.value = false;
+    }
+};
+
+const showPwd = () => {
+    passwordType.value =
+        passwordType.value === "password" ? "text" : "password";
+};
+
+defineProps({
+    isShowLoginDialog: {
+        type: Boolean,
+        required: true,
+    },
+});
+
+const emit = defineEmits(["closeLoginDialog"]);
+
+const closeDialog = () => {
+    emit("closeLoginDialog");
+};
+</script>
+
 <style scoped lang="scss">
-.footer {
-    background: linear-gradient(135deg, #090808 0%, #003d50 100%);
-    color: #e6e6e6;
-    padding: 60px 0;
+.login-dialog {
     user-select: none;
-    font-family: "Microsoft YaHei", Arial, sans-serif;
-    box-shadow: 0 -4px 10px 0 rgba(0, 0, 0, 0.2);
+    &:deep() {
+        .el-dialog {
+            height: 450px;
+            border-radius: 12px;
+            padding: 0;
+            overflow: hidden;
+            width: 450px;
+            box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+        }
 
-    .container {
-        display: flex;
-        flex-direction: column;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 15px;
-        font-size: 14px;
+        .el-dialog__header {
+            padding: 0px;
+            height: 0px;
+        }
 
-        .footer-top {
+        .el-dialog__body {
+            padding: 0 !important;
+            height: 100%;
+            color: #606266;
+            font-size: 14px;
             display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            margin-bottom: 30px;
+            flex-direction: column;
+            word-break: break-all;
+        }
+    }
 
-            .left {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                width: 40%;
+    .close-btn {
+        background: none;
+        z-index: 999;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        outline: 0;
+        padding: 0;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
 
-                .brand {
-                    .footer-title {
-                        font-size: 18px;
-                        color: #fff;
-                        font-weight: bold;
-                        margin-bottom: 5px;
-                    }
+    .login-content {
+        height: 100%;
+        width: 100%;
+        padding: 40px;
 
-                    .slogan {
-                        font-size: 14px;
-                        margin-bottom: 15px;
-                        color: rgba(255, 255, 255, 0.75);
-                    }
+        &:deep() {
+            &.el-input__wrapper {
+                border-radius: 8px;
 
-                    p {
-                        font-size: 14px;
-                        margin-top: 5px;
-                    }
+                &.is-focus {
+                    box-shadow: 0 0 0 1px #00bebd inset;
                 }
             }
 
-            .right {
-                display: flex;
-                width: 60%;
-                align-items: flex-start;
-                justify-content: space-between;
-                .footer-section {
-                    .section-title {
-                        color: #fff;
-                        font-weight: 500;
-                        margin-bottom: 15px;
-                    }
+            &.el-input__inner {
+                font-weight: 700;
+            }
 
-                    .section-list {
-                        list-style: none;
-                        padding: 0;
+            &.el-checkbox__input.is-checked .el-checkbox__inner {
+                background-color: #00bebd;
+                border-color: #00bebd;
+            }
 
-                        li {
-                            margin-bottom: 10px;
+            &.el-checkbox__inner:hover {
+                border: 1px solid #00bebd;
+            }
 
-                            a {
-                                color: rgba(255, 255, 255, 0.85);
-                                text-decoration: none;
-                                transition: color 0.3s;
-
-                                &:hover {
-                                    color: #00cdcb;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                .social-media {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    .section-title {
-                        color: #fff;
-                        font-weight: 500;
-                        margin-bottom: 15px;
-                    }
-
-                    .social-links {
-                        & > *:not(:last-child) {
-                            margin-right: 15px;
-                        }
-                    }
-                }
+            &.el-checkbox__input.is-checked + .el-checkbox__label {
+                color: #81d6d6;
             }
         }
 
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            padding-top: 20px;
-            text-align: center;
+        .login-title {
+            position: relative;
+            color: #00bebd;
+            font-size: 24px;
+            font-weight: 600;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
 
-            .extra-info {
-                p {
-                    line-height: 1.6;
-                    font-size: 14px;
-                }
+            .login-logo {
+                height: 80px;
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                top: 50%;
+            }
 
-                .extra-link {
-                    color: #00cdcb;
-                    text-decoration: none;
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
+            span {
+                display: inline-block;
+                width: 80px;
+            }
+        }
+
+        .login-form {
+            .icon {
+                color: #c0c4cc;
+            }
+
+            .toggle-password {
+                cursor: pointer;
+            }
+
+            .login-btn {
+                border-radius: 8px;
+                border-width: 0;
+                color: #fff;
+                font-size: 14px;
+                height: 40px;
+                width: 364px;
+                margin-top: 12px;
+                background-color: #00bebd;
+                border-color: #00bebd;
+            }
+        }
+
+        .agreement {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            a {
+                color: #00bebd;
             }
         }
     }

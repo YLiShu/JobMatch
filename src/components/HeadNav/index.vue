@@ -24,7 +24,7 @@
             </div>
             <div class="right">
                 <div class="auth-nav" v-if="!isLoggedIn">
-                    <button class="auth-button" @click="goToLogin">
+                    <button class="auth-button" @click="handleShowLoginDialog">
                         登录/注册
                     </button>
                 </div>
@@ -37,16 +37,29 @@
             </div>
         </div>
     </div>
+    <LoginDialog
+        :isShowLoginDialog="isShowLoginDialog"
+        @closeLoginDialog="handleCloseLoginDialog"
+    />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import LoginDialog from "../LoginDialog/index.vue";
 
 defineProps<{ isFixed: boolean }>();
 
 const isLoggedIn = ref(false);
 const userAvatar = ref("https://avatars.githubusercontent.com/u/101794864?v=4");
 const userName = ref("黎曙");
+
+const isShowLoginDialog = ref(false);
+const handleShowLoginDialog = () => {
+    isShowLoginDialog.value = true;
+};
+const handleCloseLoginDialog = () => {
+    isShowLoginDialog.value = false;
+};
 </script>
 
 <style lang="scss" scoped>

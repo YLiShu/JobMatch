@@ -2585,6 +2585,7 @@ const citiesGroupedByLetter = computed(() => {
 
 const closeDialog = () => {
     emit("closeWorkPlaceDialog");
+    selectedCities.value.splice(0, selectedCities.value.length);
 };
 
 const confirmSelection = () => {
