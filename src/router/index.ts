@@ -1,29 +1,30 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Login from "../views/Login/index.vue";
-import Home from "../views/Home/index.vue";
-import JobDetail from "../views/JobDetail/index.vue";
-import JobRecommend from "../views/JobRecommend/index.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/login",
         name: "Login",
-        component: Login,
+        component: () => import("../views/Login/index.vue"),
     },
     {
         path: "/",
         name: "Home",
-        component: Home,
+        component: () => import("../views/Home/index.vue"),
     },
     {
         path: "/job-detail",
         name: "JobDetail",
-        component: JobDetail,
+        component: () => import("../views/JobDetail/index.vue"),
     },
     {
         path: "/job-recommend",
         name: "JobRecommend",
-        component: JobRecommend,
+        component: () => import("../views/JobRecommend/index.vue"),
+    },
+    {
+        path: "/resume",
+        name: "Resume",
+        component: () => import("../views/Resume/index.vue"),
     },
 ];
 
