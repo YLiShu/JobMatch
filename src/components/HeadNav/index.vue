@@ -1,28 +1,38 @@
 <template>
     <div id="header" :class="{ 'fixed-top': isFixed }">
         <div class="header-container">
-            <div class="brand">
-                <router-link to="/" title="JobMatch">JobMatch</router-link>
+            <div class="left">
+                <div class="brand">
+                    <router-link to="/" title="JobMatch">JobMatch</router-link>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li class="nav-list-item active">
+                            <router-link to="/">首页</router-link>
+                        </li>
+                        <li class="nav-list-item">
+                            <router-link to="/search">搜索</router-link>
+                        </li>
+                        <li class="nav-list-item">
+                            <router-link to="/job-recommend"
+                                >推荐职位</router-link
+                            >
+                        </li>
+                        <!-- <li class="nav-list-item"><router-link to="/companies">公司</router-link></li> -->
+                    </ul>
+                </nav>
             </div>
-            <nav class="main-nav">
-                <ul class="nav-list">
-                    <li class="active">
-                        <router-link to="/">首页</router-link>
-                    </li>
-                    <li><router-link to="/jobs">推荐职位</router-link></li>
-                    <li>
-                        <router-link to="/search">搜索</router-link>
-                    </li>
-                    <li><router-link to="/companies">公司</router-link></li>
-                </ul>
-            </nav>
-            <div class="feedback-nav">
-                <div class="nav-item help-feedback">
-                    <button class="dropdown-button">帮助与反馈</button>
-                    <div class="dropdown-content">
-                        <router-link to="/feedback">意见反馈</router-link>
-                        <router-link to="/support">AI客服</router-link>
+            <div class="right">
+                <div class="auth-nav" v-if="!isLoggedIn">
+                    <button class="auth-button" @click="goToLogin">
+                        登录/注册
+                    </button>
+                </div>
+                <div class="user-profile" v-if="isLoggedIn">
+                    <div class="user-avatar">
+                        <img :src="userAvatar" :alt="userName" />
                     </div>
+                    <div class="user-name">{{ userName }}</div>
                 </div>
             </div>
         </div>
@@ -30,17 +40,22 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+
 defineProps<{ isFixed: boolean }>();
+
+const isLoggedIn = ref(false);
+const userAvatar = ref("https://avatars.githubusercontent.com/u/101794864?v=4"); // 用户头像URL
+const userName = ref("黎曙");
 </script>
 
 <style lang="scss" scoped>
 #header {
-    background-color: #313438;
+    background: linear-gradient(135deg, #090808 0%, #003d50 100%);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     width: 100%;
     z-index: 9999;
-    font-family: "Helvetica Neue", "Microsoft YaHei", Helvetica, Arial,
-        sans-serif;
+    font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
 
     &.fixed-top {
         position: fixed;
@@ -50,122 +65,126 @@ defineProps<{ isFixed: boolean }>();
 
 .header-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     height: 50px;
     margin: 0 auto;
     width: 1200px;
-    max-width: 1200px;
-    padding: 0 20px;
-}
 
-.brand a {
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
-    transition: all 0.3s;
-    font-family: "Comic Sans MS", "Consoals", Arial, sans-serif;
+    .left {
+        flex: 1;
+        padding: 0 20px;
+        height: 100%;
+        align-items: center;
+        display: flex;
 
-    &:hover {
-        color: #00ffff;
-    }
-}
-
-.main-nav .nav-list,
-.feedback-nav .nav-list {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-}
-
-.main-nav .nav-list li,
-.feedback-nav .nav-list li {
-    font-size: 14px;
-    margin: 5px 10px;
-    font-weight: bold;
-}
-
-.main-nav .nav-list li a,
-.feedback-nav .nav-list li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 14px;
-    transition: all 0.3s ease;
-
-    &:hover {
-        background-color: #00bebd;
-        border-radius: 5px;
-    }
-}
-
-.main-nav .nav-list li.active a {
-    background-color: #00bebd;
-    border-radius: 5px;
-}
-
-.feedback-nav {
-    display: flex;
-    align-items: center;
-
-    .nav-item {
-        position: relative;
-        margin-left: 20px;
-        &:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown-button {
-            background-color: #39424e;
+        .brand a {
+            margin-right: 60px;
             color: #fff;
-            padding: 8px 14px;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-
-            &:hover {
-                background-color: #4a5568;
-            }
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            left: 0px;
-            background-color: #fff;
-            font-size: 14px;
-            min-width: 120px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            top: 100%;
-            margin-top: 0.5rem;
-        }
-
-        .dropdown-content a {
-            color: #333;
-            padding: 10px 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
             text-decoration: none;
-            display: block;
-            border-bottom: 1px solid #eaeaea;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-family: "Consoals", "Microsoft YaHei", Helvetica, Arial,
+                sans-serif;
 
             &:hover {
-                background-color: #f7f7f7;
+                color: #3cb8b7;
             }
+        }
 
-            &:last-child {
-                border-bottom: none;
+        .main-nav .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+
+            .nav-list-item {
+                font-size: 14px;
+                margin: 5px 10px;
+                font-weight: bold;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #00bebd;
+                }
+
+                a {
+                    display: inline-block;
+                    padding: 5px 15px;
+                    color: #fff;
+                    text-decoration: none;
+                }
+
+                &.active {
+                    background-color: #00bebd;
+                }
             }
         }
     }
-}
 
-.feedback-nav .nav-item {
-    margin-left: 20px;
+    .right {
+        flex: 1;
+        padding: 0 20px;
+        height: 100%;
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+
+        .auth-nav {
+            display: flex;
+            align-items: center;
+
+            .auth-button {
+                background-color: transparent;
+                border: 1px solid #fff;
+                border-radius: 6px;
+                color: #fff;
+                margin: 0 5px;
+                padding: 5px 15px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    border: 1px solid #00cdcb;
+                    background-color: rgba(61, 199, 197, 0.2);
+                }
+            }
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover .user-name {
+                color: #00bebd;
+            }
+
+            .user-avatar {
+                border-radius: 50%;
+                width: 35px;
+                height: 35px;
+                overflow: hidden;
+                margin-right: 10px;
+                border: 1px solid #00bebd;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+            .user-name {
+                color: #fff;
+                font-size: 14px;
+                font-weight: 700;
+            }
+        }
+    }
 }
 </style>

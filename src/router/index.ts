@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Login from "../views/Login/index.vue";
 import Home from "../views/Home/index.vue";
 import JobDetail from "../views/JobDetail/index.vue";
+import JobRecommend from "../views/JobRecommend/index.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -15,9 +16,14 @@ const routes: Array<RouteRecordRaw> = [
         component: Home,
     },
     {
-        path: "/jobdetail",
+        path: "/job-detail",
         name: "JobDetail",
         component: JobDetail,
+    },
+    {
+        path: "/job-recommend",
+        name: "JobRecommend",
+        component: JobRecommend,
     },
 ];
 

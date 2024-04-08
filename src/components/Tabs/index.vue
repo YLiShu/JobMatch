@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineProps({
     tabs: {
         type: Array,
         required: true,
