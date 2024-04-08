@@ -45,7 +45,7 @@ import { ref } from "vue";
 defineProps<{ isFixed: boolean }>();
 
 const isLoggedIn = ref(false);
-const userAvatar = ref("https://avatars.githubusercontent.com/u/101794864?v=4"); // 用户头像URL
+const userAvatar = ref("https://avatars.githubusercontent.com/u/101794864?v=4");
 const userName = ref("黎曙");
 </script>
 
