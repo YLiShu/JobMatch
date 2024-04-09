@@ -11,7 +11,7 @@
                             <router-link to="/">首页</router-link>
                         </li>
                         <li class="nav-list-item">
-                            <router-link to="/search">搜索</router-link>
+                            <router-link to="/job-search">搜索</router-link>
                         </li>
                         <li class="nav-list-item">
                             <router-link to="/job-recommend"
@@ -39,13 +39,19 @@
     </div>
     <LoginDialog
         :isShowLoginDialog="isShowLoginDialog"
+        @goToRegister="handleRegisterDialog"
         @closeLoginDialog="handleCloseLoginDialog"
+    />
+    <RegisterDialog
+        :isShowRegisterDialog="isShowRegisterDialog"
+        @closeRegisterDialog="handleCloseRegisterDialog"
     />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import LoginDialog from "../LoginDialog/index.vue";
+import RegisterDialog from "../RegisterDialog/index.vue";
 
 defineProps<{ isFixed: boolean }>();
 
@@ -59,6 +65,14 @@ const handleShowLoginDialog = () => {
 };
 const handleCloseLoginDialog = () => {
     isShowLoginDialog.value = false;
+};
+const isShowRegisterDialog = ref(false);
+const handleRegisterDialog = () => {
+    isShowLoginDialog.value = false;
+    isShowRegisterDialog.value = true;
+};
+const handleCloseRegisterDialog = () => {
+    isShowRegisterDialog.value = false;
 };
 </script>
 

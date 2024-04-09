@@ -22,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/JobRecommend/index.vue"),
     },
     {
+        path: "/job-search",
+        name: "JobSearch",
+        component: () => import("../views/JobSearch/index.vue"),
+    },
+    {
         path: "/resume",
         name: "Resume",
         component: () => import("../views/Resume/index.vue"),

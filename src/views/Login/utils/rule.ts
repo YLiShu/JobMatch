@@ -37,3 +37,5 @@ export const loginRules = reactive(<FormRules>{
         },
     ],
 });
+
+export const registerRules = reactive({});

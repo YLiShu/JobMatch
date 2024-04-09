@@ -4,9 +4,10 @@
             <div class="head-nav">
                 <HeadNav :isFixed="isScroll" />
             </div>
-            <div class="recommend-bar" :class="{ 'fixed-top': isScroll }">
-                <ExpectJob />
-                <JobArea />
+            <div class="job-search-bar" :class="{ 'fixed-top': isScroll }">
+                <div class="search-form-container">
+                    <SearchForm />
+                </div>
                 <div class="other-filters-container">
                     <OtherFilters />
                 </div>
@@ -29,8 +30,7 @@ import HeadNav from "../../components/HeadNav/index.vue";
 import Footer from "../../components/Footer/index.vue";
 import SideBar from "../../components/SideBar/index.vue";
 import SearchList from "../../components/SearchList/index.vue";
-import ExpectJob from "../../components/ExpectJob/index.vue";
-import JobArea from "../../components/JobArea/index.vue";
+import SearchForm from "../../components/SearchForm/index.vue";
 import OtherFilters from "../../components/OtherFilters/index.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 
@@ -91,7 +91,7 @@ onUnmounted(() => {
         display: flex;
         flex-direction: column;
 
-        .recommend-bar {
+        .job-search-bar {
             background: #fff;
             width: 100%;
             display: flex;
@@ -99,9 +99,14 @@ onUnmounted(() => {
             align-items: center;
             box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
 
+            .search-form-container {
+                width: 1000px;
+                margin-top: 20px;
+            }
+
             .other-filters-container {
                 width: 1000px;
-                margin-bottom: 10px;
+                margin: 10px 0;
             }
 
             &.fixed-top {

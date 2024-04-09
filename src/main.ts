@@ -1,18 +1,15 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import 'element-plus/dist/index.css'
-import './style.css'
-import router from './router'
-import App from './App.vue'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import App from "./App.vue";
+import router from "./router";
+import "element-plus/dist/index.css";
+import "./style.css";
+import { registerGlobalComponents } from "./global-components";
 
-const pinia = createPinia()
-const app = createApp(App)
+const app = createApp(App);
+const pinia = createPinia();
+registerGlobalComponents(app);
 
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-    app.component(key, component)
-}
-
-app.use(pinia)
-app.use(router)
-app.mount('#app')
+app.use(pinia);
+app.use(router);
+app.mount("#app");

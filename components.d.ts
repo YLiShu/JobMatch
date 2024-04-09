@@ -32,6 +32,7 @@ declare module 'vue' {
     JobTitle: typeof import('./src/components/JobTitle/index.vue')['default']
     LoginDialog: typeof import('./src/components/LoginDialog/index.vue')['default']
     OtherFilters: typeof import('./src/components/OtherFilters/index.vue')['default']
+    RegisterDialog: typeof import('./src/components/RegisterDialog/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SafeTips: typeof import('./src/components/SafeTips/index.vue')['default']
@@ -39,6 +40,7 @@ declare module 'vue' {
     SearchForm: typeof import('./src/components/SearchForm/index.vue')['default']
     SearchList: typeof import('./src/components/SearchList/index.vue')['default']
     SideBar: typeof import('./src/components/SideBar/index.vue')['default']
+    SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
     Tabs: typeof import('./src/components/Tabs/index.vue')['default']
     WorkPlaceDialog: typeof import('./src/components/WorkPlaceDialog/index.vue')['default']
   }
