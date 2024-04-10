@@ -91,6 +91,137 @@
         <Footer />
         <Loading :loading="loading" />
     </div>
+    <div class="resume-view">
+        <div class="header">
+            <div class="head-nav">
+                <HeadNav :isFixed="false" />
+            </div>
+        </div>
+        <div class="content">
+            <div class="resume-header">
+                <div class="header-left">
+                    <div class="header-text">我的简历</div>
+                    <div class="last-update">
+                        <el-icon><Timer /></el-icon>
+                        <span class="update-time"
+                            >最后更新时间: {{ lastUpdateTime }}</span
+                        >
+                    </div>
+                </div>
+                <div class="header-right upload-button" @click="selectResume">
+                    <svg width="16" height="16">
+                        <path
+                            id="icon"
+                            fill="#fff"
+                            fill-rule="evenodd"
+                            d="M8.188 3.745L9.531 5.09l.997-.998-1.349-1.356-.99 1.01zm.401 2.287L7.255 4.697 2.688 9.353v.002l1.29 1.29h.002l4.61-4.613zm3.12-1.207l.004.004L4.543 12H2a.667.667 0 0 1-.667-.667V8.791L8.26 1.81l-.007-.007.47-.47a.667.667 0 0 1 .944.002l2.29 2.301a.667.667 0 0 1-.002.942l-.246.246zM1.667 13.333h12.666c.184 0 .334.15.334.334v.666c0 .184-.15.334-.334.334H1.667a.333.333 0 0 1-.334-.334v-.666c0-.184.15-.334.334-.334z"
+                        ></path>
+                    </svg>
+                    <span class="upload-text">上传</span>
+                </div>
+            </div>
+            <!--文件选择, 限制word、pdf、txt-->
+            <input
+                type="file"
+                accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,.txt,"
+                style="display: none"
+                ref="uploader"
+                @change="uploadResume"
+            />
+            <!--基本信息-->
+            <div class="resume-content">
+                <div class="resume-section">
+                    <div class="section-title">基本信息</div>
+                    <ul class="section-content layout-222">
+                        <li class="resume-item" v-for="item in basicInfoData">
+                            <div class="item-title">{{ item.title }}</div>
+                            <div class="item-content">
+                                {{ item.content }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--工作经历-->
+                <div class="resume-section">
+                    <div class="section-title">{{ experienceData.title }}</div>
+                    <ul
+                        class="section-content layout-211"
+                        v-for="item in experienceData.list"
+                    >
+                        <li class="resume-item" v-if="item.company">
+                            <div class="item-title">公司</div>
+                            <div class="item-content">
+                                {{ item.company }}
+                            </div>
+                        </li>
+                        <li class="resume-item" v-if="item.range">
+                            <div class="item-title">起止时间</div>
+                            <div class="item-content">
+                                {{ item.range }}
+                            </div>
+                        </li>
+                        <li class="resume-item" v-if="item.position">
+                            <div class="item-title">职位</div>
+                            <div class="item-content">
+                                {{ item.position }}
+                            </div>
+                        </li>
+                        <li class="resume-item" v-if="item.desc">
+                            <div class="item-title">描述</div>
+                            <div class="item-content">
+                                {{ item.desc }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--荣誉 / 竞赛-->
+                <div class="resume-section" v-if="awards && awards.length">
+                    <div class="section-title">{{ "荣誉 / 奖项" }}</div>
+                    <ul class="section-content layout-111">
+                        <li class="resume-item" v-for="item in awards">
+                            <div class="item-title">{{ "获奖名称" }}</div>
+                            <div class="item-content">
+                                {{ item }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--技能-->
+                <div class="resume-section" v-if="ability && ability.length">
+                    <div class="section-title">{{ "技能" }}</div>
+                    <div>{{ ability }}</div>
+                </div>
+                <!--个人标签-->
+                <div class="resume-section" v-if="tagsData && tagsData.length">
+                    <div class="section-title">{{ "个人标签" }}</div>
+                    <div>
+                        <template v-for="item in tagsData">
+                            <template v-for="tag in item.list">
+                                <el-tag
+                                    :color="
+                                        colors[
+                                            Math.floor(
+                                                Math.random() * colors.length
+                                            )
+                                        ]
+                                    "
+                                    style="
+                                        margin-right: 8px;
+                                        color: white;
+                                        border: white 1px solid;
+                                    "
+                                >
+                                    {{ tag }}
+                                </el-tag>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Footer />
+        <Loading :loading="loading" />
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -197,7 +328,6 @@ function handleResumeData(data: ResumeData) {
         const range = rangeAndPosition.slice(0, -1).join(" ");
         const position = rangeAndPosition[rangeAndPosition.length - 1];
 
-        // 将解析后的数据添加到经验数组中
         newExperience.list.push({
             company,
             range,
@@ -317,13 +447,15 @@ function handleResumeData(data: ResumeData) {
     }
 
     .section-content {
-        display: grid;
-        // 2列布局
-        grid-template-columns: repeat(2, 1fr);
         text-align: left;
+        // 2列布局
+        &.layout-222 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
 
         // 211布局
-        &.experience-grid {
+        &.layout-211 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             .resume-item:nth-child(3),
@@ -332,9 +464,15 @@ function handleResumeData(data: ResumeData) {
             }
 
             &:nth-child(n + 3) {
-                border-top: 1px dashed #eff1f1;
+                border-top: 2px dashed #eff1f1;
                 padding-top: 24px;
             }
+        }
+
+        // 一列布局
+        &.layout-111 {
+            display: flex;
+            flex-direction: column;
         }
 
         .resume-item {
