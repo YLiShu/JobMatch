@@ -19,6 +19,7 @@
           <span class="upload-text">上传</span>
         </div>
       </div>
+      <!--文件选择, 限制word、pdf、txt-->
       <input 
         type="file" 
         accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,.txt," 
@@ -30,7 +31,7 @@
       <div class="resume-content">
         <div class="resume-section">
           <div class="section-title">基本信息</div>
-          <ul class="section-content">
+          <ul class="section-content layout-222">
             <li class="resume-item" v-for="item in basicInfoData">
               <div class="item-title">{{ item.title }}</div>
               <div class="item-content">
@@ -42,7 +43,7 @@
         <!--工作经历-->
         <div class="resume-section">
           <div class="section-title">{{ experienceData.title }}</div>
-          <ul class="section-content experience-grid" v-for="item in experienceData.list">
+          <ul class="section-content layout-211" v-for="item in experienceData.list">
               <li class="resume-item" v-if="item.company">
                 <div class="item-title">公司</div>
                 <div class="item-content">
@@ -69,10 +70,40 @@
               </li>
           </ul>
         </div>
+        <!--荣誉 / 竞赛-->
+        <div class="resume-section" v-if="awards && awards.length">
+          <div class="section-title">{{ '荣誉 / 奖项' }}</div>
+          <ul class="section-content layout-111">
+            <li class="resume-item" v-for="item in awards">
+              <div class="item-title">{{ '获奖名称' }}</div>
+              <div class="item-content">
+                {{ item }}
+              </div>
+            </li>
+          </ul>
+        </div>
         <!--技能-->
         <div class="resume-section" v-if="ability && ability.length">
           <div class="section-title">{{ '技能' }}</div>
           <div>{{ ability }}</div>
+        </div>
+        <!--个人标签-->
+        <div class="resume-section" v-if="tagsData && tagsData.length">
+          <div class="section-title">{{ '个人标签' }}</div>
+          <div>
+            <template v-for="item in tagsData">
+              <template
+                v-for="tag in item.list"
+              >
+                <el-tag
+                  :color="colors[Math.floor(Math.random() * colors.length)]"
+                  style="margin-right: 8px; color: white; border: white 1px solid;"
+                >
+                  {{ tag }}
+                </el-tag>
+              </template>
+            </template>
+          </div>
         </div>
       </div>
     </div>
@@ -84,12 +115,15 @@
 <script lang="ts" setup>
 import HeadNav from "../../components/HeadNav/index.vue";
 import Footer from "../../components/Footer/index.vue";
-import {basicInfo, experience} from './mock';
+import Loading from '../../components/Loading/index.vue';
+
 import { nextTick, onMounted, ref } from 'vue';
 import axios from "axios";
+
 import { parseResume } from '../../api/resume/index';
 import { ResumeData } from './type'
-import Loading from '../../components/Loading/index.vue';
+import {basicInfo, experience, tags} from './mock';
+import colors from './colorSys';
 
 let token = '';
 const uploader = ref<HTMLInputElement | null>(null);
@@ -97,6 +131,8 @@ const uploader = ref<HTMLInputElement | null>(null);
 const basicInfoData = ref(basicInfo);
 const experienceData = ref(experience);
 const ability = ref('');
+const awards = ref<string[]>([]);
+const tagsData = ref(tags);
 const lastUpdateTime = ref('2024-03-01');
 const loading = ref(false);
 
@@ -143,6 +179,12 @@ const basicInfoEnum = {
   'loc': '所在地'
 }
 
+const tagsEnum = {
+  'edu_tag': '教育',
+  'experience_tag': '经历',
+  'ability_tag': '技能'
+}
+
 // 解析后端简历数据
 function handleResumeData(data: ResumeData) {
   lastUpdateTime.value = new Date().toLocaleDateString();
@@ -180,7 +222,6 @@ function handleResumeData(data: ResumeData) {
         const range = rangeAndPosition.slice(0, -1).join(' ');
         const position = rangeAndPosition[rangeAndPosition.length - 1];
 
-        // 将解析后的数据添加到经验数组中
         newExperience.list.push({
             company,
             range,
@@ -189,8 +230,25 @@ function handleResumeData(data: ResumeData) {
         });
     }
     experienceData.value = newExperience;
-
+    // 技能
     ability.value = data.ability.join(', ');
+
+    // 获奖
+    awards.value = data.award;
+
+    // 标签
+    const tags = data.tag;
+    const newTags = [];
+    for (const key in tagsEnum) {
+        if ((tags as any)[key]) {
+            newTags.push({
+                title: (tagsEnum as any)[key],
+                list: (tags as any)[key] as string[]
+            });
+        }
+    }
+    tagsData.value = newTags;
+
     console.log('解析完成');
 }
 </script>
@@ -299,13 +357,15 @@ function handleResumeData(data: ResumeData) {
     }
 
     .section-content {
-        display: grid;
+      text-align: left;
         // 2列布局
-        grid-template-columns: repeat(2, 1fr);
-        text-align: left;
+        &.layout-222 {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        }
 
         // 211布局
-        &.experience-grid {
+        &.layout-211 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             .resume-item:nth-child(3),
@@ -314,9 +374,15 @@ function handleResumeData(data: ResumeData) {
             }
 
             &:nth-child(n + 3) {
-                border-top: 1px dashed #eff1f1;
+                border-top: 2px dashed #eff1f1;
                 padding-top: 24px;
             }
+        }
+
+        // 一列布局
+        &.layout-111 {
+          display: flex;
+          flex-direction: column;
         }
 
         .resume-item {
