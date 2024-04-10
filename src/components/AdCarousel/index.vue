@@ -80,14 +80,14 @@ interface adCarouselList {
 
 const adCarouselList = ref<adCarouselList[]>([
     {
-        src: "https://s3plus.meituan.net/zhaopin-official-website-prod/imgs/campus/swiper_qihang%402x.png",
-        title: "美团招聘",
-        linkTo: "https://zhaopin.meituan.com/web/campus",
-    },
-    {
         src: "https://lf3-atsx-tob.feishucdn.com/obj/static-atsx-online-ee-tob/939416d59711a3ad896a1b64e01fff97/9bd51c1c50ae25f0ee6304d29bea564c1b00bd2934949cec84fc895d45adee7f.png",
         title: "得物招聘",
         linkTo: "https://campus.dewu.com/578078/position/list",
+    },
+    {
+        src: "https://s3plus.meituan.net/zhaopin-official-website-prod/imgs/campus/swiper_qihang%402x.png",
+        title: "美团招聘",
+        linkTo: "https://zhaopin.meituan.com/web/campus",
     },
     {
         src: "https://lf6-files.qingfuwucdn.net/obj/inspirecloud-file/baas/ttoiwq/fca6fccc0425a0f1_1709544382667.png",

@@ -21,6 +21,7 @@
                     <span>登录</span>
                 </div>
                 <el-form
+                    @submit.prevent
                     ref="ruleFormRef"
                     :model="loginForm"
                     :rules="loginRules"
@@ -52,14 +53,14 @@
                             </template>
                         </el-input>
                     </el-form-item>
-                    <div class="agreement">
-                        <el-checkbox v-model="agreement"
+                    <el-form-item prop="agreement" class="agreement">
+                        <el-checkbox v-model="loginForm.agreement"
                             ><span
                                 >我已阅读并同意 <a href="#">用户协议</a> 和
                                 <a href="#">隐私条款</a></span
                             ></el-checkbox
                         >
-                    </div>
+                    </el-form-item>
                     <button class="login-btn" @click="handleLogin">登录</button>
                     <div class="register-link">
                         <span>还没有账号？</span
@@ -73,50 +74,54 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
-import { loginRules } from "../../views/Login/utils/rule";
+import { loginRules } from "../../utils/tools/rule";
 import { ElMessage, type FormInstance } from "element-plus";
 import { login } from "../../api/user/index";
 
-const loading = ref(false);
 const ruleFormRef = ref<FormInstance>();
-
-const loginForm = reactive({
-    username: "",
-    password: "",
-});
-
-const agreement = ref(false);
-
-const clearPassword = () => {
-    loginForm.password = "";
-};
-
-const handleLogin = async () => {
-    loading.value = true;
-    try {
-        await ruleFormRef.value!.validate();
-        const { data } = await login(loginForm);
-        localStorage.setItem("TOKEN_KEY", data as unknown as string);
-        ElMessage({
-            message: "登陆成功",
-            type: "success",
-        });
-    } catch (error) {
-    } finally {
-        loading.value = false;
-    }
-};
-
-defineProps({
+const props = defineProps({
     isShowLoginDialog: {
         type: Boolean,
         required: true,
     },
 });
 
-const emit = defineEmits(["closeLoginDialog", "goToRegister"]);
+const loginForm = reactive({
+    username: "",
+    password: "",
+    agreement: false,
+});
+
+const clearPassword = () => {
+    loginForm.password = "";
+};
+
+const handleLogin = async () => {
+    try {
+        await ruleFormRef.value!.validate();
+        const { data } = await login(loginForm);
+        localStorage.setItem("TOKEN_KEY", data as string);
+        ElMessage({
+            message: "登陆成功",
+            type: "success",
+        });
+        closeDialog();
+        emit("loginSuccess");
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const emit = defineEmits(["closeLoginDialog", "goToRegister", "loginSuccess"]);
+
+const resetForm = () => {
+    loginForm.agreement = false;
+    loginForm.username = "";
+    loginForm.password = "";
+};
 
 const closeDialog = () => {
+    resetForm();
     emit("closeLoginDialog");
 };
 

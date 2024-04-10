@@ -60,9 +60,9 @@ defineProps<{ isFixed: boolean }>();
         position: fixed;
         top: 50px;
         width: 100%;
-        background-color: #e8fafa;
         padding: 10px 0;
         height: 130px;
+        background-color: #e8fafa;
         box-shadow: 0 8px 8px 8px #e8fafa;
 
         .inner {

@@ -1,8 +1,8 @@
 <template>
     <div class="search-form">
         <form action="/job_detail/" method="get">
-            <div class="search-form-con" @click="handleShowWorkPlaceDialog">
-                <div class="position-sel">
+            <div class="search-form-con">
+                <div class="position-sel" @click="handleShowWorkPlaceDialog">
                     <span class="label-text">
                         <b>{{ workPlaceTitle }}</b>
                         <SvgIcon name="position" size="14" />
@@ -53,7 +53,9 @@ const workPlace = ref<any>([
 
 const getCurrentCity = () => {
     return new Promise((resolve, reject) => {
-        fetch("/location/ip?coor=bd09ll&ak=zvrhKoe2A1u8PMjJsSuE5GkeNL78mLXh")
+        fetch(
+            "/location/location/ip?coor=bd09ll&ak=zvrhKoe2A1u8PMjJsSuE5GkeNL78mLXh"
+        )
             .then((response) => {
                 if (response.ok) {
                     return response.json();

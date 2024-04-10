@@ -1,14 +1,45 @@
 /* 登录接口参数类型 */
 export interface LoginData {
-    username: string,
-    password: string
+    username: string;
+    password: string;
 }
 
 /* 登录接口返回值类型 */
 export interface LoginResult {
-    code: number,
-    data: string | null,
-    msg: string
+    code: number;
+    data: string | null;
+    msg: string;
+}
+
+/* 注册接口参数类型 */
+export interface RegisterData {
+    mobile: string;
+    captchaKey: string;
+    captchaCode: string;
+    password: string;
+    nickName?: string;
+}
+
+/* 注册接口返回值类型 */
+export interface RegisterResult {
+    code: number;
+    data: boolean;
+    msg: string;
+}
+
+/* 图片验证码接口参数类型 */
+export interface CaptchaData {
+    captchaToken: number;
+}
+
+/* 图片验证码接口返回值类型 */
+export interface CaptchaResult {
+    code: number;
+    msg: string;
+    data: {
+        key: string;
+        captcha: string;
+    };
 }
 
 /* 用户信息接口返回值类型 */

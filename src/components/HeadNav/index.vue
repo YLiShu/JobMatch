@@ -7,13 +7,24 @@
                 </div>
                 <nav class="main-nav">
                     <ul class="nav-list">
-                        <li class="nav-list-item active">
+                        <li
+                            class="nav-list-item"
+                            :class="{ active: $route.path === '/' }"
+                        >
                             <router-link to="/">首页</router-link>
                         </li>
-                        <li class="nav-list-item">
+                        <li
+                            class="nav-list-item"
+                            :class="{ active: $route.path === '/job-search' }"
+                        >
                             <router-link to="/job-search">搜索</router-link>
                         </li>
-                        <li class="nav-list-item">
+                        <li
+                            class="nav-list-item"
+                            :class="{
+                                active: $route.path === '/job-recommend',
+                            }"
+                        >
                             <router-link to="/job-recommend"
                                 >推荐职位</router-link
                             >
@@ -28,7 +39,7 @@
                         登录/注册
                     </button>
                 </div>
-                <div class="user-profile" v-if="isLoggedIn">
+                <div class="user-profile" v-if="isLoggedIn" @click="gotoResume">
                     <div class="user-avatar">
                         <img :src="userAvatar" :alt="userName" />
                     </div>
@@ -40,24 +51,24 @@
     <LoginDialog
         :isShowLoginDialog="isShowLoginDialog"
         @goToRegister="handleRegisterDialog"
+        @loginSuccess="handleLoginSuccess"
         @closeLoginDialog="handleCloseLoginDialog"
     />
     <RegisterDialog
         :isShowRegisterDialog="isShowRegisterDialog"
+        @goToLogin="handleShowLoginDialog"
         @closeRegisterDialog="handleCloseRegisterDialog"
     />
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import LoginDialog from "../LoginDialog/index.vue";
 import RegisterDialog from "../RegisterDialog/index.vue";
+import { getUserInfo } from "../../api/user";
+import router from "../../router";
 
 defineProps<{ isFixed: boolean }>();
-
-const isLoggedIn = ref(false);
-const userAvatar = ref("https://avatars.githubusercontent.com/u/101794864?v=4");
-const userName = ref("黎曙");
 
 const isShowLoginDialog = ref(false);
 const handleShowLoginDialog = () => {
@@ -66,6 +77,7 @@ const handleShowLoginDialog = () => {
 const handleCloseLoginDialog = () => {
     isShowLoginDialog.value = false;
 };
+
 const isShowRegisterDialog = ref(false);
 const handleRegisterDialog = () => {
     isShowLoginDialog.value = false;
@@ -73,6 +85,37 @@ const handleRegisterDialog = () => {
 };
 const handleCloseRegisterDialog = () => {
     isShowRegisterDialog.value = false;
+};
+
+const userAvatar = ref("");
+const userName = ref("");
+const isLoggedIn = ref(Boolean(localStorage.getItem("TOKEN_KEY")));
+
+const fetchUserInfo = async () => {
+    try {
+        const { data } = await getUserInfo();
+        const { user } = data;
+
+        userAvatar.value = `http://162.14.111.43:8080/${user.faceImageBig}`;
+        userName.value = user.nickname;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+onMounted(() => {
+    if (isLoggedIn.value) {
+        fetchUserInfo();
+    }
+});
+
+const gotoResume = () => {
+    router.push("/resume");
+};
+
+const handleLoginSuccess = () => {
+    isLoggedIn.value = true;
+    fetchUserInfo();
 };
 </script>
 

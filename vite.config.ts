@@ -22,7 +22,7 @@ export default defineConfig({
             "/location": {
                 target: "http://api.map.baidu.com",
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, ""),
+                rewrite: (path) => path.replace(/^\/location/, ""),
             },
         },
     },
