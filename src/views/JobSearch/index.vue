@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="content">
-            <SearchList />
+            <SearchList :isType="true" />
         </div>
         <div class="footer">
             <Footer />
@@ -33,6 +33,7 @@ import SearchList from "../../components/SearchList/index.vue";
 import SearchForm from "../../components/SearchForm/index.vue";
 import OtherFilters from "../../components/OtherFilters/index.vue";
 import { onMounted, onUnmounted, ref } from "vue";
+import { getUserInfo } from "../../api/user";
 
 const isScroll = ref<boolean>(false);
 const containerRef = ref<HTMLElement | null>(null);

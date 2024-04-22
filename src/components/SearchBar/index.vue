@@ -112,8 +112,8 @@ defineProps<{ isFixed: boolean }>();
                     .search-box-scan-qrcode {
                         width: 70%;
                         height: 70%;
-                        background: url(https://static.zhipin.com/zhipin-geek/v703/web/geek/images/boss-download-qrcode.png)
-                            center / 100% no-repeat;
+                        background: url(../../assets/code.png) center / 100%
+                            no-repeat;
                     }
 
                     .search-box-qrcode-tips {

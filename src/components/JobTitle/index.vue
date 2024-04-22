@@ -37,15 +37,15 @@
 import { ref } from "vue";
 const jobInfoTags = ref([
     {
-        img: "https://img01.51jobcdn.com/yjs/img/job-area-596b98b.png",
+        img: "xxx",
         content: "广州-天河区",
     },
     {
-        img: "https://img01.51jobcdn.com/yjs/img/job-exp-02ef20b.png",
+        img: "xxx",
         content: "在校生/应届生",
     },
     {
-        img: "https://img01.51jobcdn.com/yjs/img/job-edu-6cac646.png",
+        img: "xxx",
         content: "本科",
     },
     {
@@ -53,7 +53,7 @@ const jobInfoTags = ref([
         content: "全职",
     },
     {
-        img: "https://img01.51jobcdn.com/yjs/img/job-time-b713eac.png",
+        img: "xxx",
         content: "更新于03-28",
     },
 ]);

@@ -1,6 +1,6 @@
 <template>
     <div class="search-form">
-        <form action="/job_detail/" method="get">
+        <form @submit.prevent="handleSearch">
             <div class="search-form-con">
                 <div class="position-sel" @click="handleShowWorkPlaceDialog">
                     <span class="label-text">
@@ -11,7 +11,8 @@
                 <p class="ipt-wrap">
                     <input
                         type="text"
-                        name="query"
+                        name="keyword"
+                        :keyword="keyword"
                         class="ipt-search"
                         maxlength="50"
                         autocomplete="off"
@@ -26,9 +27,6 @@
                 value=""
             />
             <button class="btn-search">搜索</button>
-            <div class="suggest-result">
-                <ul></ul>
-            </div>
         </form>
     </div>
     <WorkPlaceDialog
@@ -42,6 +40,7 @@
 import { computed, onMounted, ref } from "vue";
 import WorkPlaceDialog from "../WorkPlaceDialog/index.vue";
 const isShowWorkPlaceDialog = ref(false);
+const keyword = ref("");
 const workPlace = ref<any>([
     {
         title: "",

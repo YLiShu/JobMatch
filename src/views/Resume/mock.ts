@@ -48,21 +48,20 @@ export const experience = {
 };
 
 export const tags = [
-  {
-    title: '教育',
-    list: ['本科']
-  },
-  {
-    title: '地区',
-    list: ['北京市']
-  },
-  {
-    title: '经验',
-    list: ['3-5年']
-  },
-  {
-    title: '技能',
-    list: ['团队合作', '沟通能力', '逻辑思维']
-  }
-]
->>>>>>> 6678591b0c03e3360c3a0c8288176b247edd52da
+    {
+        title: "教育",
+        list: ["本科"],
+    },
+    {
+        title: "地区",
+        list: ["北京市"],
+    },
+    {
+        title: "经验",
+        list: ["3-5年"],
+    },
+    {
+        title: "技能",
+        list: ["团队合作", "沟通能力", "逻辑思维"],
+    },
+];

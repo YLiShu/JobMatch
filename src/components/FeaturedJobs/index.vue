@@ -8,6 +8,7 @@
         >
             <ul class="featured-jobs-box">
                 <li
+                    @click="gotoTest"
                     class="job-list-item"
                     v-for="(job, jobIndex) in jobList"
                     :key="jobIndex"
@@ -68,6 +69,10 @@ interface Job {
         address: string;
     };
 }
+
+const gotoTest = () => {
+    router.push("/job-detail?id=012a");
+};
 const jobCategorizations = ref<JobCategorization[]>([
     {
         title: "技术",
@@ -102,13 +107,46 @@ const jobList = ref<Job[]>([
         company: {
             name: "中冶赛迪集团",
             logoURL:
-                "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_rawmaterial.png",
+                "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_internet.png",
+            address: "上海",
+        },
+    },
+    {
+        title: "前端开发工程师实习生",
+        salary: "3千-4千",
+        tags: ["在校生/应届生", "本科"],
+        company: {
+            name: "中国电信研究院",
+            logoURL:
+                "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_internet.png",
             address: "成都-武侯区",
         },
     },
     {
-        title: "前端开发工程师",
+        title: "亚马逊产品开发岗实习生",
         salary: "7千-1万",
+        tags: ["在校生/应届生", "本科", "全职"],
+        company: {
+            name: "广州艾科米尔电子商务有限公司",
+            logoURL:
+                "https://img01.51jobcdn.com/fansImg/CompLogo/5/4230/4229106/4229106_300.png",
+            address: "广州-天河区",
+        },
+    },
+    {
+        title: "高级前端开发工程师",
+        salary: "8千-1.1万",
+        tags: ["在校生/应届生", "本科"],
+        company: {
+            name: "上海识装信息科技有限公司",
+            logoURL:
+                "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_rawmaterial.png",
+            address: "上海",
+        },
+    },
+    {
+        title: "前端开发实习生",
+        salary: "6千-9千",
         tags: ["在校生/应届生", "本科"],
         company: {
             name: "中冶赛迪集团",
@@ -118,47 +156,14 @@ const jobList = ref<Job[]>([
         },
     },
     {
-        title: "前端开发工程师",
-        salary: "7千-1万",
+        title: "IOS开发工程师",
+        salary: "1万-1.2万",
         tags: ["在校生/应届生", "本科"],
         company: {
-            name: "中冶赛迪集团",
+            name: "三快科技有限公司",
             logoURL:
                 "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_rawmaterial.png",
-            address: "成都-武侯区",
-        },
-    },
-    {
-        title: "前端开发工程师",
-        salary: "7千-1万",
-        tags: ["在校生/应届生", "本科"],
-        company: {
-            name: "中冶赛迪集团",
-            logoURL:
-                "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_rawmaterial.png",
-            address: "成都-武侯区",
-        },
-    },
-    {
-        title: "前端开发工程师",
-        salary: "7千-1万",
-        tags: ["在校生/应届生", "本科"],
-        company: {
-            name: "中冶赛迪集团",
-            logoURL:
-                "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_rawmaterial.png",
-            address: "成都-武侯区",
-        },
-    },
-    {
-        title: "前端开发工程师",
-        salary: "7千-1万",
-        tags: ["在校生/应届生", "本科"],
-        company: {
-            name: "中冶赛迪集团",
-            logoURL:
-                "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_rawmaterial.png",
-            address: "成都-武侯区",
+            address: "上海-杨浦区",
         },
     },
 ]);
@@ -179,8 +184,30 @@ const handleTabChange = (index: number) => {
                 },
             },
             {
-                title: "银行贷款专员-实习",
+                title: "银行贷款专员",
+                salary: "5-10K",
+                tags: ["北京", "本科", "银行", "全职"],
+                company: {
+                    name: "巨程普惠",
+                    logoURL:
+                        "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_finance.png",
+                    address: "北京",
+                },
+            },
+            {
+                title: "银行贷款客户经理",
                 salary: "2-4万",
+                tags: ["在校生/应届生", "本科", "银行"],
+                company: {
+                    name: "北京恒衍鑫商务咨询",
+                    logoURL:
+                        "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_finance.png",
+                    address: "北京-朝阳区",
+                },
+            },
+            {
+                title: "银行贷款专员",
+                salary: "1-3万",
                 tags: ["在校生/应届生", "本科", "银行", "市场开拓"],
                 company: {
                     name: "恒昌国际投资担保（北京）",
@@ -190,33 +217,11 @@ const handleTabChange = (index: number) => {
                 },
             },
             {
-                title: "银行贷款专员-实习",
-                salary: "2-4万",
-                tags: ["在校生/应届生", "本科", "银行", "市场开拓"],
+                title: "贷款专员-实习",
+                salary: "3-5K",
+                tags: ["在校生", "本科", "银行"],
                 company: {
-                    name: "恒昌国际投资担保（北京）",
-                    logoURL:
-                        "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_finance.png",
-                    address: "北京-朝阳区",
-                },
-            },
-            {
-                title: "银行贷款专员-实习",
-                salary: "2-4万",
-                tags: ["在校生/应届生", "本科", "银行", "市场开拓"],
-                company: {
-                    name: "恒昌国际投资担保（北京）",
-                    logoURL:
-                        "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_finance.png",
-                    address: "北京-朝阳区",
-                },
-            },
-            {
-                title: "银行贷款专员-实习",
-                salary: "2-4万",
-                tags: ["在校生/应届生", "本科", "银行", "市场开拓"],
-                company: {
-                    name: "恒昌国际投资担保（北京）",
+                    name: "昌济国际投资担保",
                     logoURL:
                         "https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_finance.png",
                     address: "北京-朝阳区",

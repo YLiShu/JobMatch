@@ -1,237 +1,62 @@
 <template>
     <div class="search-list">
-        <div class="search-list-item">
+        <div
+            class="search-list-item"
+            v-for="position in positions"
+            :key="position.title"
+        >
             <div class="search-list-item-content">
                 <div class="left">
                     <div class="left-title">
-                        <div class="left-title-name">
-                            前端开发工程师（深圳）
-                        </div>
+                        <div class="left-title-name">{{ position.title }}</div>
                     </div>
                     <div class="left-tag">
-                        <span class="left-tag-item">深圳-龙岗区</span
-                        ><span class="left-tag-item">在校生/应届生</span
-                        ><span class="left-tag-item">本科</span
-                        ><span class="left-tag-item">计算机科学与技术</span
-                        ><span class="left-tag-item">软件工程</span
-                        ><span class="left-tag-item">计算机</span
-                        ><span class="left-tag-item">vue</span
-                        ><span class="left-tag-item">开发</span
-                        ><span class="left-tag-item">软件开发</span
-                        ><span class="left-tag-item">数学</span
-                        ><span class="left-tag-item">react</span
-                        ><span class="left-tag-item">软件工程</span
-                        ><span class="left-tag-item">js</span
-                        ><span class="left-tag-item">津贴补贴</span
-                        ><span class="left-tag-item">中长期激励</span>
+                        <span
+                            class="left-tag-item"
+                            v-for="tag in position.tags"
+                            :key="tag"
+                            >{{ tag }}</span
+                        >
                     </div>
                     <div class="left-detail">
                         <img
-                            src="https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_imnetwork.png"
+                            :src="position.imgSrc"
                             alt="img"
                             class="left-detail-img"
                         />
                         <div class="left-detail-text left-detail-company">
-                            华海智汇技术
+                            {{ position.company }}
                         </div>
-                        <div class="left-detail-text">民营</div>
+                        <div class="left-detail-text">
+                            {{ position.companyType }}
+                        </div>
                         <span class="line"></span>
-                        <div class="left-detail-text">通信/电信/网络设备</div>
+                        <div class="left-detail-text">
+                            {{ position.industry }}
+                        </div>
                     </div>
                 </div>
                 <div class="right">
-                    <div class="right-salary">1-1.8万</div>
-                    <div class="right-btn">立即申请</div>
-                </div>
-            </div>
-        </div>
-        <div class="search-list-item">
-            <div class="search-list-item-content">
-                <div class="left">
-                    <div class="left-title">
-                        <div class="left-title-name">
-                            前端开发工程师（深圳）
-                        </div>
-                    </div>
-                    <div class="left-tag">
-                        <span class="left-tag-item">深圳-龙岗区</span
-                        ><span class="left-tag-item">在校生/应届生</span
-                        ><span class="left-tag-item">本科</span
-                        ><span class="left-tag-item">计算机科学与技术</span
-                        ><span class="left-tag-item">软件工程</span
-                        ><span class="left-tag-item">计算机</span
-                        ><span class="left-tag-item">vue</span
-                        ><span class="left-tag-item">开发</span
-                        ><span class="left-tag-item">软件开发</span
-                        ><span class="left-tag-item">数学</span
-                        ><span class="left-tag-item">react</span
-                        ><span class="left-tag-item">软件工程</span
-                        ><span class="left-tag-item">js</span
-                        ><span class="left-tag-item">津贴补贴</span
-                        ><span class="left-tag-item">中长期激励</span>
-                    </div>
-                    <div class="left-detail">
-                        <img
-                            src="https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_imnetwork.png"
-                            alt="img"
-                            class="left-detail-img"
-                        />
-                        <div class="left-detail-text left-detail-company">
-                            华海智汇技术
-                        </div>
-                        <div class="left-detail-text">民营</div>
-                        <span class="line"></span>
-                        <div class="left-detail-text">通信/电信/网络设备</div>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="right-salary">1-1.8万</div>
-                    <div class="right-btn">立即申请</div>
-                </div>
-            </div>
-        </div>
-        <div class="search-list-item">
-            <div class="search-list-item-content">
-                <div class="left">
-                    <div class="left-title">
-                        <div class="left-title-name">
-                            前端开发工程师（深圳）
-                        </div>
-                    </div>
-                    <div class="left-tag">
-                        <span class="left-tag-item">深圳-龙岗区</span
-                        ><span class="left-tag-item">在校生/应届生</span
-                        ><span class="left-tag-item">本科</span
-                        ><span class="left-tag-item">计算机科学与技术</span
-                        ><span class="left-tag-item">软件工程</span
-                        ><span class="left-tag-item">计算机</span
-                        ><span class="left-tag-item">vue</span
-                        ><span class="left-tag-item">开发</span
-                        ><span class="left-tag-item">软件开发</span
-                        ><span class="left-tag-item">数学</span
-                        ><span class="left-tag-item">react</span
-                        ><span class="left-tag-item">软件工程</span
-                        ><span class="left-tag-item">js</span
-                        ><span class="left-tag-item">津贴补贴</span
-                        ><span class="left-tag-item">中长期激励</span>
-                    </div>
-                    <div class="left-detail">
-                        <img
-                            src="https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_imnetwork.png"
-                            alt="img"
-                            class="left-detail-img"
-                        />
-                        <div class="left-detail-text left-detail-company">
-                            华海智汇技术
-                        </div>
-                        <div class="left-detail-text">民营</div>
-                        <span class="line"></span>
-                        <div class="left-detail-text">通信/电信/网络设备</div>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="right-salary">1-1.8万</div>
-                    <div class="right-btn">立即申请</div>
-                </div>
-            </div>
-        </div>
-        <div class="search-list-item">
-            <div class="search-list-item-content">
-                <div class="left">
-                    <div class="left-title">
-                        <div class="left-title-name">
-                            前端开发工程师（深圳）
-                        </div>
-                    </div>
-                    <div class="left-tag">
-                        <span class="left-tag-item">深圳-龙岗区</span
-                        ><span class="left-tag-item">在校生/应届生</span
-                        ><span class="left-tag-item">本科</span
-                        ><span class="left-tag-item">计算机科学与技术</span
-                        ><span class="left-tag-item">软件工程</span
-                        ><span class="left-tag-item">计算机</span
-                        ><span class="left-tag-item">vue</span
-                        ><span class="left-tag-item">开发</span
-                        ><span class="left-tag-item">软件开发</span
-                        ><span class="left-tag-item">数学</span
-                        ><span class="left-tag-item">react</span
-                        ><span class="left-tag-item">软件工程</span
-                        ><span class="left-tag-item">js</span
-                        ><span class="left-tag-item">津贴补贴</span
-                        ><span class="left-tag-item">中长期激励</span>
-                    </div>
-                    <div class="left-detail">
-                        <img
-                            src="https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_imnetwork.png"
-                            alt="img"
-                            class="left-detail-img"
-                        />
-                        <div class="left-detail-text left-detail-company">
-                            华海智汇技术
-                        </div>
-                        <div class="left-detail-text">民营</div>
-                        <span class="line"></span>
-                        <div class="left-detail-text">通信/电信/网络设备</div>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="right-salary">1-1.8万</div>
-                    <div class="right-btn">立即申请</div>
-                </div>
-            </div>
-        </div>
-        <div class="search-list-item">
-            <div class="search-list-item-content">
-                <div class="left">
-                    <div class="left-title">
-                        <div class="left-title-name">
-                            前端开发工程师（深圳）
-                        </div>
-                    </div>
-                    <div class="left-tag">
-                        <span class="left-tag-item">深圳-龙岗区</span
-                        ><span class="left-tag-item">在校生/应届生</span
-                        ><span class="left-tag-item">本科</span
-                        ><span class="left-tag-item">计算机科学与技术</span
-                        ><span class="left-tag-item">软件工程</span
-                        ><span class="left-tag-item">计算机</span
-                        ><span class="left-tag-item">vue</span
-                        ><span class="left-tag-item">开发</span
-                        ><span class="left-tag-item">软件开发</span
-                        ><span class="left-tag-item">数学</span
-                        ><span class="left-tag-item">react</span
-                        ><span class="left-tag-item">软件工程</span
-                        ><span class="left-tag-item">js</span
-                        ><span class="left-tag-item">津贴补贴</span
-                        ><span class="left-tag-item">中长期激励</span>
-                    </div>
-                    <div class="left-detail">
-                        <img
-                            src="https://img04.51jobcdn.com/im/mkt/app/51job_phone/app/homelogo/new/home_logo_default_imnetwork.png"
-                            alt="img"
-                            class="left-detail-img"
-                        />
-                        <div class="left-detail-text left-detail-company">
-                            华海智汇技术
-                        </div>
-                        <div class="left-detail-text">民营</div>
-                        <span class="line"></span>
-                        <div class="left-detail-text">通信/电信/网络设备</div>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="right-salary">1-1.8万</div>
+                    <div class="right-salary">{{ position.salary }}</div>
                     <div class="right-btn">立即申请</div>
                 </div>
             </div>
         </div>
         <div class="search-list-pagination">
-            <el-pagination background layout="prev, pager, next" :total="300" />
+            <el-pagination background layout="prev, pager, next" :total="100" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+import {
+    positions_1,
+    positions_2,
+    positions_z_1,
+    positions_z_2,
+} from "./mock.ts";
+const positions = ref(positions_z_1);
 </script>
 
 <style scoped lang="scss">
