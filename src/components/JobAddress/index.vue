@@ -46,14 +46,6 @@ defineProps({
         required: true,
     },
 });
-
-// const description = computed(() => {
-//     if (!props.content.description) return ""; // 在描述不存在时返回空字符串
-//     const maxLength = 50;
-//     return props.content.description.length > maxLength
-//         ? props.content.description.substring(0, maxLength) + "..."
-//         : props.content.description;
-// });
 </script>
 
 <style scoped lang="scss">

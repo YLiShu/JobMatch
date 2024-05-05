@@ -43,7 +43,6 @@ class JMHttp {
                 if (token) {
                     config.headers["Authorization"] = token;
                 }
-                config.headers["Content-Type"] = "application/json";
                 return config;
             },
             (error: AxiosError) => {
