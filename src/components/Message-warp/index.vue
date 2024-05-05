@@ -13,8 +13,8 @@
 
                             <ul role="group" style="padding: 0px;">
                                 <li role="listitem" v-for="(item, index) in friends.hr" :key="index"
-                                    class="user-list-item" @click="" style="height: 78px;">
-                                    <div class="friend-content">
+                                    class="user-list-item" @click="select(item)" style="height: 78px;">
+                                    <div class="friend-content" :class="{ selection: item.friendNickname === selectedName }">
                                         <div class="avatar" style="    position: relative;
                                         float: left;
                                         width: 46px;
@@ -36,8 +36,8 @@
 
                                 </li>
                                 <li role="listitem" v-for="(item, index) in friends.user" :key="index"
-                                    class="user-list-item" @click="" style="height: 78px;">
-                                    <div class="friend-content">
+                                    class="user-list-item" @click="select(item)" style="height: 78px;">
+                                    <div class="friend-content" :class="{ selection: item.friendNickname === selectedName }">
                                         <div class="avatar" style="    position: relative;
                                         float: left;
                                         width: 46px;
@@ -87,8 +87,11 @@
                     <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="input">
 
                     </el-input>
-
+                    <div class="sendButton">
+                                        <el-button @click="sendMessage">发送</el-button>
+                                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -98,7 +101,10 @@
 import { inputEmits } from "element-plus";
 import { onMounted, ref, reactive } from "vue";
 import { getFriends, getUserInfo } from "../../api/user";
+import WebSocket from 'ws';
 
+const socketurl = 'ws://47.108.153.136:8898/ws';
+const socket = new WebSocket(socketurl);
 const input = ref("")
 const userAvatar = ref("");
 const isLoggedIn = ref(Boolean(localStorage.getItem("TOKEN_KEY")));
@@ -138,17 +144,27 @@ const getFriendsList = async () => {
 }
 
 const userInfo = ref()
-
+const userId = ref()
 const UserInfo = async () => {
     try {
         console.log("userInfo");
         userInfo.value = await getUserInfo()
         console.log(userInfo.value.data.user);
+        userId.value = userInfo.value.data.user.userId
         getFriendsList();
     } catch (error) {
         console.log(error);
     }
 }
+
+const selectedName = ref()
+const selectedUserId = ref()
+const select = (item: any) => {
+    console.log(item);
+    selectedName.value = item.friendNickname;
+    selectedUserId.value = item.friendUserId
+}
+
 
 
 const sendMessage = () => {
@@ -159,6 +175,9 @@ onMounted(() => {
     if (isLoggedIn.value) {
         UserInfo()
     }
+    socket.value.onopen = () => {
+        console.log('WebSocket connected');
+      };
 });
 </script>
 
@@ -202,11 +221,12 @@ onMounted(() => {
                         height: 100%;
                         padding: 6px 0;
 
-                        ::selection {
-                            background-color: cyan;
+                        .selection {
+                            background-color: rgb(184, 184, 184);
                         }
 
                         .friend-content {
+                            height: 78px;
                             position: relative;
                             display: block;
                             padding: 14px 12px;
@@ -280,6 +300,7 @@ onMounted(() => {
             overflow: hidden;
             position: relative;
             z-index: 1;
+            border-radius: 12px;
 
             .chat-record {
                 position: relative;
@@ -302,11 +323,17 @@ onMounted(() => {
                 position: relative;
                 padding: 0 30px;
                 border-top: 1px solid #e6e8eb;
+                .sendButton {
+                    text-align: right;
+            }
             }
 
             .chat-im {
                 margin-bottom: -152px;
             }
+
+            
+
         }
     }
 }
