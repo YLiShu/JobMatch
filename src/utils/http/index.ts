@@ -10,7 +10,7 @@ import { useUserStore } from "../../store/modules/user";
 
 const URL: string = import.meta.env.VITE_API_BASE_URL;
 enum RequestEnums {
-    TIMEOUT = 15000,
+    TIMEOUT = 150000,
     LOGINFAIL = 203, // 登录失败
     OVERDUE = 401, // 登录失效
     SUCCESS = 200, // 请求成功
