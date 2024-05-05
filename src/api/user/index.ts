@@ -30,3 +30,11 @@ export const getCaptchaCode = (data: CaptchaData) => {
 export const uploadFaceBase64 = (data: uploadFaceData) => {
     return http.post<uploadFaceResponse>("/uploadFaceBase64", data);
 };
+
+export const getUserResume = () => {
+    return http.get("/user/resume")
+};
+
+export const updateUserResume = (data: any) => {
+    return http.post("/user/resume/update", data);
+}

@@ -1,0 +1,96 @@
+.resume-section {
+  margin-top: 32px;
+  text-align: left;
+
+  .editor &{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 35px;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 24px;
+      right: 24px;
+      height: 1px;
+      background: #eff1f1;
+    }
+
+    .edit-area {
+      width: 60%;
+      padding: 24px 24px 0 24px;
+    }
+  }
+
+  .section-title {
+      position: relative;
+      height: 32px;
+      margin-bottom: 38px;
+      text-align: left;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.6;
+      color: #1f2329;
+
+      &::after {
+          position: absolute;
+          bottom: -8px;
+          left: 0;
+          content: "";
+          width: 24px;
+          height: 4px;
+          background-color: #00bebd;
+      }
+  }
+
+  .section-content {
+      text-align: left;
+      // 2列布局
+      &.layout-222 {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+      }
+
+      // 211布局
+      &.layout-211 {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          .resume-item:nth-child(3),
+          .resume-item:nth-child(4) {
+              grid-column: span 2;
+          }
+
+          &:nth-child(n + 3) {
+              border-top: 2px dashed #eff1f1;
+              padding-top: 24px;
+          }
+      }
+
+      // 一列布局
+      &.layout-111 {
+          display: flex;
+          flex-direction: column;
+      }
+
+      .resume-item {
+          margin-bottom: 12px;
+
+          .item-title {
+              margin-bottom: 4px;
+              font-size: 14px;
+              font-weight: 500;
+              line-height: 1.71;
+              color: #1f2329;
+              opacity: 0.45;
+          }
+
+          .item-content {
+              word-wrap: break-word;
+              font-size: 16px;
+              line-height: 1.75;
+              color: #1f2329;
+          }
+      }
+  }
+}

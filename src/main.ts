@@ -11,6 +11,11 @@ const app = createApp(App);
 setupStore(app);
 registerGlobalComponents(app);
 
+router.beforeEach((to, from, next) => {
+  window.document.title = to.meta.title as string || 'Job Match!';
+  next();
+});
+
 app.use(router);
 
 app.mount("#app");

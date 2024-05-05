@@ -25,7 +25,18 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/resume",
         name: "Resume",
-        component: () => import("../views/Resume/index.vue"),
+        component: () => import("../views/Resume/resume-view.vue"),
+        meta: {
+            title: "我的简历"
+        }
+    },
+    {
+        path: "/resume-edit",
+        name: "ResumeEdit",
+        component: () => import("../views/Resume/resume-edit.vue"),
+        meta: {
+            title: "编辑简历"
+        }
     },
     {
         path: "/login",
