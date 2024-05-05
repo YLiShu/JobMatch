@@ -29,8 +29,8 @@ const hotPositions = ref([
     { name: "IT技术支持", query: "IT技术支持" },
 ]);
 
-const navigateToPosition = (query: string) => {
-    router.push({ path: `/search`, query: { query } });
+const navigateToPosition = (keyword: string) => {
+    router.push({ path: `/job-search`, query: { keyword } });
 };
 </script>
 

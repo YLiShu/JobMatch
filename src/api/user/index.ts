@@ -7,6 +7,8 @@ import type {
     RegisterData,
     RegisterResult,
     UserInfoResponse,
+    uploadFaceData,
+    uploadFaceResponse,
 } from "./types";
 
 export const login = (data: LoginData) => {
@@ -23,4 +25,8 @@ export const register = (data: RegisterData) => {
 
 export const getCaptchaCode = (data: CaptchaData) => {
     return http.get<CaptchaResult>("code/getCaptchaCode", data);
+};
+
+export const uploadFaceBase64 = (data: uploadFaceData) => {
+    return http.post<uploadFaceResponse>("/uploadFaceBase64", data);
 };

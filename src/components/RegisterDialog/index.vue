@@ -2,6 +2,8 @@
     <div class="register-dialog">
         <el-dialog
             destroy-on-close
+            :close-on-click-modal="false"
+            :close-on-press-escape="false"
             :model-value="isShowRegisterDialog"
             :show-close="false"
             align-center

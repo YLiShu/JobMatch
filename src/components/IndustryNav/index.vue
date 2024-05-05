@@ -40,12 +40,12 @@
                 >
                     <li
                         class="swiper-slide-item"
-                        @click="navigateToIndustry(item.query)"
+                        @click="navigateToIndustry(item.categoryId)"
                         v-for="(item, index) in chunkedIndustry"
                         :key="index"
                     >
                         <span class="swiper-slide-text">
-                            {{ item.name }}
+                            {{ item.categoryName }}
                         </span>
                         <span class="swiper-slide-btn">
                             <SvgIcon name="go" size="16" />
@@ -58,92 +58,25 @@
 </template>
 
 <script setup lang="ts">
-
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { getCategoryList } from "../../api/jobs";
 import router from "../../router";
 
-const industryList = ref([
-    {
-        name: "机械/电气设备/自动化/重工/轻工",
-        query: "机械/电气设备/自动化/重工/轻工",
-    },
-    {
-        name: "汽车行业(整车及零部件设计生产商)",
-        query: "汽车行业(整车及零部件设计生产商)",
-    },
-    {
-        name: "石油/钢铁/电力/能源/煤矿",
-        query: "石油/钢铁/电力/能源/煤矿",
-    },
-    {
-        name: "化工/生物/制药/医疗/农林/畜牧/养殖",
-        query: "化工/生物/制药/医疗/农林/畜牧/养殖",
-    },
-    {
-        name: "交通运输/物流仓储",
-        query: "交通运输/物流仓储",
-    },
-    {
-        name: "仪器仪表/电器/家电/电子类",
-        query: "仪器仪表/电器/家电/电子类",
-    },
-    {
-        name: "移动通信/电信运营、增值服务",
-        query: "移动通信/电信运营、增值服务",
-    },
-    {
-        name: "通信设备/网络设备",
-        query: "通信设备/网络设备",
-    },
-    {
-        name: "芯片/电子技术/半导体/集成电路",
-        query: "芯片/电子技术/半导体/集成电路",
-    },
-    {
-        name: "计算机硬件",
-        query: "计算机硬件",
-    },
-    {
-        name: "计算机软件",
-        query: "计算机软件",
-    },
-    {
-        name: "互联网/电子商务",
-        query: "互联网/电子商务",
-    },
-    {
-        name: "银行/投资公司",
-        query: "银行/投资公司",
-    },
-    {
-        name: "证券/基金/保险/期货",
-        query: "证券/基金/保险/期货",
-    },
-    {
-        name: "会计师事务所/财务公司",
-        query: "会计师事务所/财务公司",
-    },
-    {
-        name: "咨询公司/法律/人力资源",
-        query: "咨询公司/法律/人力资源",
-    },
-    {
-        name: "消费品/零售/服装/家具/贸易",
-        query: "消费品/零售/服装/家具/贸易",
-    },
-    {
-        name: "媒体/广告/旅游/公关/文化/影视/酒店/会展",
-        query: "媒体/广告/旅游/公关/文化/影视/酒店/会展",
-    },
-    {
-        name: "建筑/房地产/工程建设",
-        query: "建筑/房地产/工程建设",
-    },
-    {
-        name: "教育/国家机关/高校/研究所/事业单位",
-        query: "教育/国家机关/高校/研究所/事业单位",
-    },
-]);
+interface IndustryList {
+    categoryId: number;
+    categoryName: string;
+    description: string;
+}
+
+const industryList = ref<IndustryList[]>([]);
+const getCategory = async () => {
+    const { data } = await getCategoryList();
+    industryList.value = data;
+};
+
+onMounted(async () => {
+    await getCategory();
+});
 
 const slideSize = 6;
 
@@ -166,13 +99,13 @@ const swiperTransform = computed(() => {
     };
 });
 
-const navigateToIndustry = (query: string) => {
-    router.push({ path: `/search`, query: { query } });
+const navigateToIndustry = (categoryId: string) => {
+    router.push({ path: `/job-search`, query: { categoryId } });
 };
 
 const currentSlideIndex = ref(1);
 
-const updateCurrentSlide = (index) => {
+const updateCurrentSlide = (index: number) => {
     currentSlideIndex.value = index;
 };
 
@@ -192,8 +125,7 @@ const nextSlide = () => {
 <style scoped lang="scss">
 .industry-nav {
     height: 320px;
-    max-width: 280px;
-    width: 100%;
+    width: 280px;
     display: flex;
     flex-direction: column;
     background: linear-gradient(135deg, #eaf8f8 0, #ffffff 100%);

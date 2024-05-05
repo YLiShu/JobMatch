@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="content">
-            <CityBar />
+            <!-- <CityBar /> -->
             <div class="industry-ad-container">
                 <div class="industry-container">
                     <IndustryNav />
@@ -22,7 +22,7 @@
                 <FeaturedJobs />
             </div>
             <div class="hot-enterprise-positions-container">
-                <HotEnterPrisePositions />
+                <RecommendedPositions />
             </div>
             <div class="hot-enterprises-container">
                 <HotEnterPriseList />
@@ -41,13 +41,13 @@
 import HeadNav from "../../components/HeadNav/index.vue";
 import SearchBar from "../../components/SearchBar/index.vue";
 import Footer from "../../components/Footer/index.vue";
-import CityBar from "../../components/CityBar/index.vue";
+// import CityBar from "../../components/CityBar/index.vue";
 import IndustryNav from "../../components/IndustryNav/index.vue";
 import AdCarousel from "../../components/AdCarousel/index.vue";
 import HotEnterPriseList from "../../components/HotEnterPriseList/index.vue";
 import SideBar from "../../components/SideBar/index.vue";
 import FeaturedJobs from "../../components/FeaturedJobs/index.vue";
-import HotEnterPrisePositions from "../../components/HotEnterprisePositions/index.vue";
+import RecommendedPositions from "../../components/RecommendedPositions/index.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 
 const isScroll = ref<boolean>(false);
@@ -56,7 +56,7 @@ const containerRef = ref<HTMLElement | null>(null);
 const handleScroll = () => {
     if (containerRef.value) {
         const top = containerRef.value.scrollTop;
-        isScroll.value = top > 240;
+        isScroll.value = top > 150;
     }
 };
 

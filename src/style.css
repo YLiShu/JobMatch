@@ -53,6 +53,52 @@ button {
     transform: translate(-50%, -50%) !important;
 }
 
+.el-message {
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.el-message .el-message__icon {
+    color: #fff;
+}
+
+.el-message--success {
+    background: linear-gradient(to right, #00bebd, #090909);
+    border-color: #00bebd;
+}
+
+.el-message--success .el-message__content {
+    color: #00bebd;
+}
+
+.el-message--info {
+    background: linear-gradient(to right, #00bebd, #090909);
+    border-color: #909399;
+}
+
+.el-message--info .el-message__content {
+    color: #909399;
+}
+
+.el-message--warning {
+    border-color: #fcc97e;
+    background: linear-gradient(to right, #fcc97e, #090909);
+}
+
+.el-message--warning .el-message__content {
+    color: #fcc97e;
+}
+
+.el-message--error {
+    background: linear-gradient(to right, #f56c6c, #090909);
+    border-color: #f56c6c;
+}
+
+.el-message--error .el-message__content {
+    color: #f56c6c;
+}
+
 #app {
     height: 100vh;
     min-width: 100%;

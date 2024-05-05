@@ -1,61 +1,54 @@
 <template>
-    <div class="featured-jobs">
-        <h2>精选职位</h2>
-        <Tabs
-            :activeTab="activeTab"
-            :tabs="jobCategorizations"
-            @changeTab="handleTabChange"
-        >
-            <ul class="featured-jobs-box">
-                <li
-                    @click="goToDetail(jobIndex)"
-                    class="job-list-item"
-                    v-for="(job, jobIndex) in jobList"
-                    :key="jobIndex"
-                >
-                    <p class="job-list-item-top">
-                        <span class="job-list-item-title">{{ job.title }}</span
-                        ><span class="job-list-item-salary">{{
-                            job.salary
-                        }}</span>
-                    </p>
-                    <p class="job-list-item-tagbox">
-                        <span
-                            class="job-list-item-tag"
-                            v-for="(tag, tagIndex) in job.tags"
-                            :key="tagIndex"
-                            >{{ tag }}</span
-                        >
-                    </p>
-                    <div class="job-list-item-company">
-                        <div class="left">
-                            <div class="logo">
-                                <img :src="job.company.logoURL" />
-                            </div>
-                            <span class="job-list-item-company-name">{{
-                                job.company.name
-                            }}</span>
+    <div class="recommended-positions">
+        <h2>推荐职位</h2>
+
+        <ul class="recommended-positions-box">
+            <li
+                @click="goToDetail(jobIndex)"
+                class="recommended-positions-item"
+                v-for="(job, jobIndex) in jobList"
+                :key="jobIndex"
+            >
+                <p class="recommended-positions-item-top">
+                    <span class="recommended-positions-item-title">{{
+                        job.title
+                    }}</span
+                    ><span class="recommended-positions-item-salary">{{
+                        job.salary
+                    }}</span>
+                </p>
+                <p class="recommended-positions-item-tagbox">
+                    <span
+                        class="recommended-positions-item-tag"
+                        v-for="(tag, tagIndex) in job.tags"
+                        :key="tagIndex"
+                        >{{ tag }}</span
+                    >
+                </p>
+                <div class="recommended-positions-item-company">
+                    <div class="left">
+                        <div class="logo">
+                            <img :src="job.company.logoURL" />
                         </div>
-                        <span class="job-list-item-com-address">{{
-                            job.company.address
+                        <span class="recommended-positions-item-company-name">{{
+                            job.company.name
                         }}</span>
                     </div>
-                </li>
-            </ul>
-        </Tabs>
-        <!-- <div class="featured-jobs-more">
-            <button class="featured-jobs-btn" @click="navigateToEnterprise">
-                查看更多
-            </button>
-        </div> -->
+                    <span class="recommended-positions-item-com-address">{{
+                        job.company.address
+                    }}</span>
+                </div>
+            </li>
+            <Loading :loading="loading" />
+        </ul>
     </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import Tabs from "../Tabs/index.vue";
-import { getCategoryList, getPositionByCategory } from "../../api/jobs/index";
+import { getRecommendedPositions } from "../../api/jobs";
 import router from "../../router";
+import Loading from "../../components/Loading/index.vue";
 
 interface Job {
     positionId: number;
@@ -68,30 +61,17 @@ interface Job {
         address: string;
     };
 }
-
-interface JobCategorization {
-    categoryId: number;
-    categoryName: string;
-    description: string;
-}
-
-const jobCategorizations = ref<JobCategorization[]>([]);
 const jobList = ref<Job[]>([]);
-const activeTab = ref<number>(0);
+const loading = ref(false);
 
-const getCategory = async () => {
-    const { data } = await getCategoryList();
-    jobCategorizations.value = data.slice(0, 6);
-    if (jobCategorizations.value.length) handleTabChange(0);
-};
-
-const getPosition = async (categoryId: number) => {
-    const path = {
-        categoryId,
-        page: "1",
-    };
-    const { data } = await getPositionByCategory(path, { limit: 6 });
-    jobList.value = data.posInfo.list.map((item: any) => {
+const getRecommendedJobs = async () => {
+    loading.value = true;
+    const { data } = await getRecommendedPositions(
+        { page: "1" },
+        { limit: 12 }
+    );
+    loading.value = false;
+    jobList.value = data.posInfo.map((item: any) => {
         return {
             positionId: item.positionId,
             title: item.title,
@@ -106,32 +86,22 @@ const getPosition = async (categoryId: number) => {
     });
 };
 
-const handleTabChange = (tabIndex: number) => {
-    activeTab.value = tabIndex;
-    const categoryId = jobCategorizations.value[tabIndex].categoryId;
-    getPosition(categoryId);
-};
-
 const goToDetail = (index: number) => {
     const { positionId } = jobList.value[index];
     router.push(`/job-detail?positionId=${positionId}`);
 };
 
 onMounted(async () => {
-    await getCategory();
+    await getRecommendedJobs();
 });
 </script>
 
 <style scoped lang="scss">
-.featured-jobs {
+.recommended-positions {
     width: 100%;
     max-width: 1200px;
 
-    h2 {
-        margin-bottom: 30px;
-    }
-
-    .featured-jobs-box {
+    .recommended-positions-box {
         margin-top: 10px;
         width: 100%;
         border-radius: 12px;
@@ -142,8 +112,29 @@ onMounted(async () => {
         padding: 24px 20px;
         grid-row-gap: 20px;
         grid-column-gap: 20px;
+        position: relative;
+        min-height: 300px;
 
-        .job-list-item {
+        &:deep() {
+            .loading-wrapper {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: transparent;
+
+                .loading {
+                    width: 10px;
+                    height: 10px;
+
+                    i {
+                        width: 10px;
+                        height: 10px;
+                    }
+                }
+            }
+        }
+
+        .recommended-positions-item {
             border: 1px solid #edeff2;
             height: 150px;
             border-radius: 12px;
@@ -156,7 +147,7 @@ onMounted(async () => {
             cursor: pointer;
             transition: all 0.2s ease-in-out;
 
-            .job-list-item-top {
+            .recommended-positions-item-top {
                 display: flex;
                 width: 100%;
                 flex: 1;
@@ -165,7 +156,7 @@ onMounted(async () => {
                 margin-bottom: 12px;
                 cursor: pointer;
 
-                .job-list-item-title {
+                .recommended-positions-item-title {
                     max-width: 200px;
                     font-size: 16px;
                     font-weight: 500;
@@ -176,7 +167,7 @@ onMounted(async () => {
                     transition: all linear 0.2s;
                 }
 
-                .job-list-item-salary {
+                .recommended-positions-item-salary {
                     font-size: 16px;
                     color: #3ec6c5;
                     flex: 1;
@@ -185,7 +176,7 @@ onMounted(async () => {
                 }
             }
 
-            .job-list-item-tagbox {
+            .recommended-positions-item-tagbox {
                 flex: 1;
                 display: flex;
                 align-items: center;
@@ -199,7 +190,7 @@ onMounted(async () => {
                 text-overflow: ellipsis;
                 white-space: nowrap;
 
-                .job-list-item-tag {
+                .recommended-positions-item-tag {
                     padding: 2px 8px;
                     color: #666;
                     border-radius: 15px;
@@ -219,7 +210,7 @@ onMounted(async () => {
                 }
             }
 
-            .job-list-item-company {
+            .recommended-positions-item-company {
                 display: flex;
                 flex: 1;
                 width: 100%;
@@ -243,46 +234,18 @@ onMounted(async () => {
                         }
                     }
                 }
-                .job-list-item-com-address {
+                .recommended-positions-item-com-address {
                     color: #666;
                 }
             }
             &:hover {
                 transform: scale(1.05);
 
-                .job-list-item-title {
+                .recommended-positions-item-title {
                     font-weight: 700;
                     color: #00a6a7;
                     transform: scale(1.01);
                 }
-            }
-        }
-    }
-
-    .featured-jobs-more {
-        margin-top: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 40px;
-
-        .featured-jobs-btn {
-            height: 40px;
-            width: 180px;
-            text-align: center;
-            background: rgba(0, 190, 189, 0.1);
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 400;
-            color: #00a6a7;
-            line-height: 40px;
-            border: none;
-            transition: all 0.2s ease-in-out;
-
-            &:hover {
-                font-weight: 700;
-                transform: scale(1.05);
             }
         }
     }

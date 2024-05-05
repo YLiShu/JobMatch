@@ -6,15 +6,19 @@
             </div>
             <div class="job-search-bar" :class="{ 'fixed-top': isScroll }">
                 <div class="search-form-container">
-                    <SearchForm />
+                    <SearchForm :modelValue="keyWord" />
                 </div>
                 <div class="other-filters-container">
-                    <OtherFilters />
+                    <!-- <OtherFilters /> -->
                 </div>
             </div>
         </div>
         <div class="content">
-            <SearchList :isType="true" />
+            <SearchList
+                types="search"
+                :keyWord="keyWord"
+                :category="category ? +category : 0"
+            />
         </div>
         <div class="footer">
             <Footer />
@@ -31,17 +35,29 @@ import Footer from "../../components/Footer/index.vue";
 import SideBar from "../../components/SideBar/index.vue";
 import SearchList from "../../components/SearchList/index.vue";
 import SearchForm from "../../components/SearchForm/index.vue";
-import OtherFilters from "../../components/OtherFilters/index.vue";
-import { onMounted, onUnmounted, ref } from "vue";
-import { getUserInfo } from "../../api/user";
+// import OtherFilters from "../../components/OtherFilters/index.vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
+const { keyword, categoryId } = route.query;
 const isScroll = ref<boolean>(false);
 const containerRef = ref<HTMLElement | null>(null);
+const keyWord = ref<string>(keyword as string);
+const category = ref<string>(categoryId as string);
+
+watch(
+    () => route.query,
+    (newQuery) => {
+        keyWord.value = newQuery.keyword as string;
+        category.value = newQuery.categoryId as string;
+    }
+);
 
 const handleScroll = () => {
     if (containerRef.value) {
         const top = containerRef.value.scrollTop;
-        isScroll.value = top > 240;
+        isScroll.value = top > 150;
     }
 };
 

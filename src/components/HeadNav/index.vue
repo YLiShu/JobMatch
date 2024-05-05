@@ -39,22 +39,31 @@
                         登录/注册
                     </button>
                 </div>
-                <div class="user-profile" v-if="isLoggedIn" @click="gotoResume">
-                    <div class="user-avatar">
+                <div class="user-profile" v-if="isLoggedIn">
+                    <div class="user-avatar" @click="triggerUpload">
                         <img :src="userAvatar" :alt="userName" />
+                        <input
+                            type="file"
+                            ref="fileInput"
+                            @change="uploadAvatar"
+                            style="display: none"
+                        />
                     </div>
-                    <div class="user-name">{{ userName }}</div>
+                    <div class="user-name" @click="gotoResume">
+                        {{ userName }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <LoginDialog
+        v-if="isShowLoginDialog"
         :isShowLoginDialog="isShowLoginDialog"
         @goToRegister="handleRegisterDialog"
-        @loginSuccess="handleLoginSuccess"
         @closeLoginDialog="handleCloseLoginDialog"
     />
     <RegisterDialog
+        v-if="isShowRegisterDialog"
         :isShowRegisterDialog="isShowRegisterDialog"
         @goToLogin="handleShowLoginDialog"
         @closeRegisterDialog="handleCloseRegisterDialog"
@@ -62,14 +71,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 import LoginDialog from "../LoginDialog/index.vue";
 import RegisterDialog from "../RegisterDialog/index.vue";
-import { getUserInfo } from "../../api/user";
+import messageHelper from "../../utils/tools/message";
+import { useUserStore } from "../../store/modules/user";
 import router from "../../router";
 
 defineProps<{ isFixed: boolean }>();
 
+const userStore = useUserStore();
 const isShowLoginDialog = ref(false);
 const handleShowLoginDialog = () => {
     isShowLoginDialog.value = true;
@@ -87,35 +98,65 @@ const handleCloseRegisterDialog = () => {
     isShowRegisterDialog.value = false;
 };
 
-const userAvatar = ref("");
-const userName = ref("");
-const isLoggedIn = ref(Boolean(localStorage.getItem("TOKEN_KEY")));
-
-const fetchUserInfo = async () => {
-    try {
-        const { data } = await getUserInfo();
-        const { user } = data;
-
-        userAvatar.value = `http://162.14.111.43:8080/${user.faceImageBig}`;
-        userName.value = user.nickname;
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-onMounted(() => {
-    if (isLoggedIn.value) {
-        fetchUserInfo();
-    }
-});
+const userAvatar = computed(
+    () => `http://162.14.111.43:8080/${userStore.userInfo.user.faceImageBig}`
+);
+const userName = computed(() => userStore.userInfo?.user.nickname);
+const isLoggedIn = computed(() => Boolean(userStore.token));
 
 const gotoResume = () => {
     router.push("/resume");
 };
 
-const handleLoginSuccess = () => {
-    isLoggedIn.value = true;
-    fetchUserInfo();
+const fileInput = ref(null);
+
+const triggerUpload = () => {
+    (fileInput.value as unknown as HTMLInputElement).click();
+};
+
+const uploadAvatar = async (event: Event) => {
+    const files = (event.target as HTMLInputElement).files;
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
+    const maxSize = 2 * 1024 * 1024;
+    const validTypes = ["image/jpeg", "image/png"];
+
+    if (file.size > maxSize) {
+        messageHelper.warning("文件过大，请上传小于2MB的文件。");
+        return;
+    }
+
+    if (!validTypes.includes(file.type)) {
+        messageHelper.warning("不支持的文件类型。请上传JPEG或PNG格式的图片。");
+        return;
+    }
+
+    try {
+        const reader = new FileReader();
+        reader.onload = async () => {
+            const base64Image = reader.result as string;
+            try {
+                await userStore.updatedAvatar({
+                    userId: userStore.userInfo!.user.userId,
+                    faceData: base64Image,
+                });
+                messageHelper.success("上传成功！");
+            } catch (uploadError) {
+                console.error("上传失败：", uploadError);
+                messageHelper.error("上传失败，请稍后再试。");
+            }
+        };
+        reader.onerror = (readError) => {
+            console.error("读取文件出错：", readError);
+            messageHelper.error("无法读取图片，请尝试使用其他图片。");
+        };
+
+        reader.readAsDataURL(file);
+    } catch (error) {
+        console.error(error);
+        messageHelper.error("上传过程中发生错误。");
+    }
 };
 </script>
 
@@ -241,7 +282,7 @@ const handleLoginSuccess = () => {
                 height: 35px;
                 overflow: hidden;
                 margin-right: 10px;
-                border: 1px solid #00bebd;
+                border: 1px solid #666;
 
                 img {
                     height: 100%;

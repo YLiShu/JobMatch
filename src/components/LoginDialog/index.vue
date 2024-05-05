@@ -2,6 +2,8 @@
     <div class="login-dialog">
         <el-dialog
             destroy-on-close
+            :close-on-click-modal="false"
+            :close-on-press-escape="false"
             :model-value="isShowLoginDialog"
             :show-close="false"
             align-center
@@ -75,8 +77,9 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import { loginRules } from "../../utils/tools/rule";
-import { ElMessage, type FormInstance } from "element-plus";
-import { login } from "../../api/user/index";
+import { type FormInstance } from "element-plus";
+import { useUserStore } from "../../store/modules/user";
+import messageHelper from "../../utils/tools/message";
 
 const ruleFormRef = ref<FormInstance>();
 const props = defineProps({
@@ -97,18 +100,18 @@ const clearPassword = () => {
 };
 
 const handleLogin = async () => {
+    const userStore = useUserStore();
     try {
         await ruleFormRef.value!.validate();
-        const { data } = await login(loginForm);
-        localStorage.setItem("TOKEN_KEY", data as string);
-        ElMessage({
-            message: "登陆成功",
-            type: "success",
+        await userStore.loginByUsername({
+            username: loginForm.username,
+            password: loginForm.password,
         });
+        messageHelper.success("登录成功");
         closeDialog();
         emit("loginSuccess");
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
