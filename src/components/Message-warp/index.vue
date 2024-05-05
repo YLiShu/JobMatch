@@ -12,19 +12,44 @@
                         <div class="user-list-content">
 
                             <ul role="group" style="padding: 0px;">
-                                <li role="listitem" v-for="(item, index) in friends" :key="index" class="user-list-item"
-                                    @click="" style="height: 78px;">
+                                <li role="listitem" v-for="(item, index) in friends.hr" :key="index"
+                                    class="user-list-item" @click="" style="height: 78px;">
                                     <div class="friend-content">
                                         <div class="avatar" style="    position: relative;
                                         float: left;
                                         width: 46px;
                                         height: 46px;">
-                                            <img :src="item.userAvatar"></img>
+                                            <img
+                                                :src="item.friendFaceImage || 'https://img.bosszhipin.com/boss/avatar/avatar_8.png?x-oss-process=image/resize,l_900,h_600/format,webp'"></img>
+
                                         </div>
                                         <div class="text">
                                             <div class="title-box">
                                                 <span class="name-box">
-                                                    <span class="name">{{ item.userName }}</span>
+                                                    <span class="name">{{ item.friendNickname }}</span>
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li role="listitem" v-for="(item, index) in friends.user" :key="index"
+                                    class="user-list-item" @click="" style="height: 78px;">
+                                    <div class="friend-content">
+                                        <div class="avatar" style="    position: relative;
+                                        float: left;
+                                        width: 46px;
+                                        height: 46px;">
+                                            <img
+                                                :src="item.friendFaceImage || 'https://img.bosszhipin.com/boss/avatar/avatar_8.png?x-oss-process=image/resize,l_900,h_600/format,webp'"></img>
+
+                                        </div>
+                                        <div class="text">
+                                            <div class="title-box">
+                                                <span class="name-box">
+                                                    <span class="name">{{ item.friendNickname }}</span>
                                                 </span>
 
                                             </div>
@@ -47,43 +72,94 @@
                 </div>
             </div>
             <!-- 聊天内容 -->
-            <div class="chat-content">
+            <div class="message-content">
+                <div class="chat-record">
+                    <div class="chat-message">
+
+                    </div>
+                </div>
                 <!-- 聊天内容 -->
             </div>
 
             <!-- 输入框 -->
-            <div class="chat-input">
-                <!-- 输入框 -->
-            </div>
+            <div class="message-controls">
+                <div class="chat-im chat-editor">
+                    <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="input">
 
-            <!-- 聊天输入框 -->
-            <div class="chat-input-warp">
-                <!-- 聊天输入框 -->
-            </div>
+                    </el-input>
 
-            <!-- 聊天输入框 -->
-            <div class="chat-input-warp">
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { inputEmits } from "element-plus";
+import { onMounted, ref, reactive } from "vue";
+import { getFriends, getUserInfo } from "../../api/user";
 
+const input = ref("")
 const userAvatar = ref("");
-const friends = ref([
-    {
-        userId: 1,
-        userName: "张三",
-        userAvatar: "https://img.bosszhipin.com/boss/avatar/avatar_8.png?x-oss-process=image/resize,l_900,h_600/format,webp",
-    },
-    {
-        userId: 2,
-        userName: "李四",
-        userAvatar: "https://img.bosszhipin.com/boss/avatar/avatar_8.png?x-oss-process=image/resize,l_900,h_600/format,webp",
-    }]
+const isLoggedIn = ref(Boolean(localStorage.getItem("TOKEN_KEY")));
+const friends = ref({
+    user: [
+        {
+            userId: 1,
+            friendNickname: "张三",
+            friendFaceImage: "https://img.bosszhipin.com/boss/avatar/avatar_8.png?x-oss-process=image/resize,l_900,h_600/format,webp",
+        },
+        {
+            userId: 2,
+            friendNickname: "李四",
+            friendFaceImage: "https://img.bosszhipin.com/boss/avatar/avatar_8.png?x-oss-process=image/resize,l_900,h_600/format,webp",
+        },
+    ],
+    hr: [{
+        userId: 3,
+        friendNickname: "王五",
+        friendFaceImage: "https://img.bosszhipin.com/boss/avatar/avatar_8.png?x-oss-process=image/resize,l_900,h_600/format,webp",
+    },]
+}
 );
+const getFriendsList = async () => {
+
+    try {
+        const res = await getFriends({ userId: userInfo.value.data.user.userId });
+        console.log(res);
+        if (res.code === 200) {
+            const result = res.data as { user: { userId: number; friendNickname: string; friendFaceImage: string; }[]; hr: { userId: number; friendNickname: string; friendFaceImage: string; }[]; };
+            friends.value = result;
+
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const userInfo = ref()
+
+const UserInfo = async () => {
+    try {
+        console.log("userInfo");
+        userInfo.value = await getUserInfo()
+        console.log(userInfo.value.data.user);
+        getFriendsList();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+const sendMessage = () => {
+    console.log(input);
+}
+
+onMounted(() => {
+    if (isLoggedIn.value) {
+        UserInfo()
+    }
+});
 </script>
 
 <style scoped lang="scss">
@@ -196,6 +272,40 @@ const friends = ref([
             .user-info {
                 display: flex;
                 align-items: center;
+            }
+        }
+
+        .message-content {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+
+            .chat-record {
+                position: relative;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                width: 100%;
+                height: 100%;
+                background-color: #fff;
+
+                .chat-message {
+                    overflow-y: auto;
+                }
+            }
+        }
+
+        .message-controls {
+            height: 160px;
+
+            .chat-editor {
+                position: relative;
+                padding: 0 30px;
+                border-top: 1px solid #e6e8eb;
+            }
+
+            .chat-im {
+                margin-bottom: -152px;
             }
         }
     }

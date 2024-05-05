@@ -125,3 +125,28 @@ export interface UserInfoResponse {
         };
     } | null;
 }
+
+/* 好友列表接口返回值类型 */
+export interface FriendsList {
+    code: number;
+    data: {
+        hr:{
+            friendUserId: number; // 好友用户ID
+            mobile: string; // 手机号码
+            friendFaceImage: string | null; // 好友头像图片
+            friendNickname: string | null; // 好友昵称
+        };
+        user:{
+            friendUserId: number; // 好友用户ID
+            mobile: string; // 手机号码
+            friendFaceImage: string | null; // 好友头像图片
+            friendNickname: string | null; // 好友昵称
+        };
+    };
+    msg: string;
+}
+
+/* 用户信息接口参数类型 */
+export interface userId {
+    userId:number;
+}

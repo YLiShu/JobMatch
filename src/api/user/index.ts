@@ -7,6 +7,8 @@ import type {
     RegisterData,
     RegisterResult,
     UserInfoResponse,
+    FriendsList,
+    userId,
 } from "./types";
 
 export const login = (data: LoginData) => {
@@ -23,4 +25,9 @@ export const register = (data: RegisterData) => {
 
 export const getCaptchaCode = (data: CaptchaData) => {
     return http.get<CaptchaResult>("code/getCaptchaCode", data);
+};
+
+
+export const getFriends = (data: userId) => {
+    return http.get<FriendsList>("/queryFriendList",data);
 };
