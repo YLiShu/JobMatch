@@ -7,7 +7,7 @@
             
         </div>
         <div class="content">
-            <SearchList :isType="true" />
+           <Message_warp></Message_warp>
         </div>
         <div class="footer">
             <Footer />
@@ -22,6 +22,7 @@
 import HeadNav from "../../components/HeadNav/index.vue";
 import Footer from "../../components/Footer/index.vue";
 import SideBar from "../../components/SideBar/index.vue";
+import Message_warp from "../../components/Message-warp/index.vue"; 
 import SearchList from "../../components/SearchList/index.vue";
 import SearchForm from "../../components/SearchForm/index.vue";
 import OtherFilters from "../../components/OtherFilters/index.vue";
