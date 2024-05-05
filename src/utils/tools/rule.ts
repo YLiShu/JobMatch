@@ -2,7 +2,7 @@ import { reactive, ref } from "vue";
 import type { FormRules } from "element-plus";
 
 export const passwordRegexp =
-    /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)]|[()])+$)(?!^.*[\u4E00-\u9FA5].*$)([^(0-9a-zA-Z)]|[()]|[a-z]|[A-Z]|[0-9]){6,18}$/;
+    /^(?!^.*[\u4E00-\u9FA5].*$)([^(0-9a-zA-Z)]|[()]|[a-z]|[A-Z]|[0-9]){6,18}$/;
 
 // 共用的密码验证逻辑
 const validatePassword = (rule, value, callback) => {
@@ -11,7 +11,7 @@ const validatePassword = (rule, value, callback) => {
     }
     if (!passwordRegexp.test(value)) {
         return callback(
-            new Error("密码格式应为6-18位数字、字母、符号的任意两种组合")
+            new Error("密码格式应为6-18位数字、字母、符号")
         );
     }
     callback();
