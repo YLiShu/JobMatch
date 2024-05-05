@@ -15,7 +15,7 @@ import type {
 } from "./types";
 
 export const getCategoryList = () => {
-    return http.get<CategoryResponse>("/getCategoryList");
+    return http.get<CategoryResponse>("/api/getCategoryList");
 };
 
 export const getPositionByCategory = (
@@ -23,7 +23,7 @@ export const getPositionByCategory = (
     data: CategoryPositionData
 ) => {
     return http.get<CategoryPositionResponse>(
-        `/category/${categoryId}/${page}`,
+        `/api/category/${categoryId}/${page}`,
         data
     );
 };
@@ -32,7 +32,7 @@ export const getRecommendedPositions = (
     { page }: RecommendedPositionsPath,
     data: RecommendedPositionsData
 ) => {
-    return http.get<RecommendedPositionsResponse>(`/page/${page}`, data);
+    return http.get<RecommendedPositionsResponse>(`/api/page/${page}`, data);
 };
 
 export const getPositionDetail = (
@@ -40,7 +40,7 @@ export const getPositionDetail = (
     data: PositionDetailData
 ) => {
     return http.get<PositionDetailResponse>(
-        `/position/${positionId}/${page}`,
+        `/api/position/${positionId}/${page}`,
         data
     );
 };
@@ -50,7 +50,7 @@ export const getFavorOrNotPosition = ({
 }: {
     positionId: string;
 }) => {
-    return http.get<any>(`/user/favorOrNot/${positionId}`);
+    return http.get<any>(`/api/user/favorOrNot/${positionId}`);
 };
 
 export const getApplyOrNotPosition = ({
@@ -58,11 +58,11 @@ export const getApplyOrNotPosition = ({
 }: {
     positionId: string;
 }) => {
-    return http.get<any>(`/user/applyOrNot/${positionId}`);
+    return http.get<any>(`/api/user/applyOrNot/${positionId}`);
 };
 
 export const collectedPosition = ({ positionId }: { positionId: string }) => {
-    return http.get<any>(`/user/favor/${positionId}`);
+    return http.get<any>(`/api/user/favor/${positionId}`);
 };
 
 export const cancelCollectedPosition = ({
@@ -70,13 +70,13 @@ export const cancelCollectedPosition = ({
 }: {
     positionId: string;
 }) => {
-    return http.get<any>(`/user/disfavor/${positionId}`);
+    return http.get<any>(`/api/user/disfavor/${positionId}`);
 };
 
 export const deliveryPosition = (data: { positionId: string }) => {
-    return http.get<any>("/user/apply", data);
+    return http.get<any>("/api/user/apply", data);
 };
 
 export const searchPosition = (data: searchPositionData) => {
-    return http.get<searchPositionResponse>("/search", data);
+    return http.get<searchPositionResponse>("/api/search", data);
 };

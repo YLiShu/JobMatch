@@ -12,21 +12,21 @@ import type {
 } from "./types";
 
 export const login = (data: LoginData) => {
-    return http.post<LoginResult>("/user/loginPost", data);
+    return http.post<LoginResult>("/api/user/loginPost", data);
 };
 
 export const getUserInfo = () => {
-    return http.get<UserInfoResponse>("/user/info");
+    return http.get<UserInfoResponse>("/api/user/info");
 };
 
 export const register = (data: RegisterData) => {
-    return http.post<RegisterResult>("/user/registerPost", data);
+    return http.post<RegisterResult>("/api/user/registerPost", data);
 };
 
 export const getCaptchaCode = (data: CaptchaData) => {
-    return http.get<CaptchaResult>("/code/getCaptchaCode", data);
+    return http.get<CaptchaResult>("/api/code/getCaptchaCode", data);
 };
 
 export const uploadFaceBase64 = (data: uploadFaceData) => {
-    return http.post<uploadFaceResponse>("/uploadFaceBase64", data);
+    return http.post<uploadFaceResponse>("/api/uploadFaceBase64", data);
 };
