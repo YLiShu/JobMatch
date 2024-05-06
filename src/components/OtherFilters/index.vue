@@ -28,48 +28,6 @@
             </div>
             <div class="other-filters-mutiselect">
                 <div class="other-filters-mutiselect-input">
-                    <div class="other-filters-title">全职</div>
-                </div>
-                <div class="other-filters-mutiselect-box" style="display: none">
-                    <ul class="other-filters-mutiselect-select">
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">不限</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item active">
-                            <div class="text">全职</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">兼职</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">实习</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="other-filters-mutiselect">
-                <div class="other-filters-mutiselect-input">
-                    <div class="other-filters-title">工作年限</div>
-                </div>
-                <div class="other-filters-mutiselect-box" style="display: none">
-                    <ul class="other-filters-mutiselect-select">
-                        <li class="other-filters-mutiselect-select-item active">
-                            <div class="text">不限</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">在校生/应届生</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">3年以上</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">无需经验</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="other-filters-mutiselect">
-                <div class="other-filters-mutiselect-input">
                     <div class="other-filters-title">薪资范围</div>
                 </div>
                 <div class="other-filters-mutiselect-box" style="display: none">
@@ -97,43 +55,6 @@
                         </li>
                         <li class="other-filters-mutiselect-select-item">
                             <div class="text">1-1.5万</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="other-filters-mutiselect">
-                <div class="other-filters-mutiselect-input">
-                    <div class="other-filters-title">公司行业</div>
-                </div>
-                <div class="other-filters-mutiselect-box" style="display: none">
-                    <ul class="other-filters-mutiselect-select">
-                        <li class="other-filters-mutiselect-select-item active">
-                            <div class="text">不限</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">计算机软件</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">电子技术/半导体/集成电路</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">金融/投资/证券</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">贸易/进出口</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">
-                                快速消费品(食品、饮料、化妆品)
-                            </div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">服装/纺织/皮革</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">
-                                专业服务(咨询、人力资源、财会)
-                            </div>
                         </li>
                     </ul>
                 </div>
@@ -192,7 +113,10 @@
                     font-size: 14px;
                     font-weight: 400;
                     height: 32px;
-                    padding-left: 12px;
+                    display: flex;
+                    padding: 2px 8px;
+                    align-items: center;
+                    justify-content: center;
                 }
 
                 .other-filters-icon {

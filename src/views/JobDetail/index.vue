@@ -102,7 +102,7 @@ const jobInfoContent = ref<JobInfoContent>({
 });
 
 const companyInfoContent = ref<CompanyInfoContent>({
-    title: "公司信息",
+    title: "公司详情",
     content: "",
 });
 
@@ -145,7 +145,7 @@ const getJobDetail = async () => {
                 content: data.position.describe,
             };
             companyInfoContent.value = {
-                title: "公司信息",
+                title: "公司详情",
                 content: data.company.description,
             };
             jobAddressContent.value = {
