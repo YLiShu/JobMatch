@@ -82,7 +82,6 @@ const router = useRouter();
 <style lang="scss" scoped>
 .edit-page {
     text-align: left;
-    background: linear-gradient(180deg, #00bebd 0, #e8fafa 50%, #f9f9f9 100%);
 
     .editor {
         width: min(100%, 1040px);
