@@ -9,6 +9,8 @@ import type {
     UserInfoResponse,
     FriendsList,
     userId,
+    UnsignedMsg,
+    acceptUserId,
 } from "./types";
 
 export const login = (data: LoginData) => {
@@ -31,3 +33,7 @@ export const getCaptchaCode = (data: CaptchaData) => {
 export const getFriends = (data: userId) => {
     return http.get<FriendsList>("/queryFriendList",data);
 };
+
+export const getUnsignedMsg = (data: acceptUserId) => {
+    return http.get<UnsignedMsg>("/queryUnsignedMsg",data);
+}

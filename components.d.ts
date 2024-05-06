@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AdCarousel: typeof import('./src/components/AdCarousel/index.vue')['default']
     CityBar: typeof import('./src/components/CityBar/index.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElForm: typeof import('element-plus/es')['ElForm']
