@@ -9,6 +9,7 @@ import {
 } from "../../api/user/types";
 import { login, getUserInfo, uploadFaceBase64 } from "../../api/user";
 import store from "../index";
+import router from "../../router";
 
 export const useUserStore = defineStore("user", {
     state: () => ({
@@ -48,6 +49,7 @@ export const useUserStore = defineStore("user", {
             this.token = null;
             this.userInfo = null;
             localStorage.removeItem("user");
+            router.push("/login");
         },
 
         async getUserInfo() {

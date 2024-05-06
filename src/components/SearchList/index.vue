@@ -100,9 +100,12 @@ const props = defineProps({
         type: String,
         default: "",
     },
-    category: {
-        type: Number,
-        default: 0,
+    filterSettings: {
+        type: Object,
+        default: () => ({
+            categoryId: 0,
+            salaryId: "salaryUp",
+        }),
     },
     types: {
         type: String,
@@ -139,10 +142,10 @@ const fetchPositions = async (page = pagination.value.page) => {
         if (props.types === "search") {
             const response = await searchPosition({
                 keyword: props.keyWord.trim(),
-                orderBy: "salaryUp",
+                orderBy: props.filterSettings.salaryId,
                 page: page,
                 limit: pagination.value.limit,
-                categoryId: props.category,
+                categoryId: props.filterSettings.categoryId,
             });
             positions.value = response.data.posInfo.list.map(
                 mapToFrontendPosition
@@ -187,7 +190,7 @@ const goToDetail = (positionId: string) => {
 };
 
 watch(
-    () => [props.keyWord, props.category],
+    () => [props.keyWord, props.filterSettings],
     async (newValues, oldValues) => {
         await fetchPositions();
     }

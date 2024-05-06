@@ -4,146 +4,155 @@
         <div class="other-filters-options">
             <div class="other-filters-mutiselect">
                 <div class="other-filters-mutiselect-input">
-                    <div class="other-filters-title">学历要求</div>
+                    <div
+                        class="other-filters-title"
+                        :style="selectedCategoryName && { color: '#00bebd' }"
+                    >
+                        {{ selectedCategoryName || "职位分类" }}
+                    </div>
                 </div>
-                <div class="other-filters-mutiselect-box" style="display: none">
+                <div class="other-filters-mutiselect-box">
                     <ul class="other-filters-mutiselect-select">
-                        <li class="other-filters-mutiselect-select-item active">
-                            <div class="text">不限</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">大专</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">本科</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">硕士</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">博士</div>
+                        <li
+                            class="other-filters-mutiselect-select-item"
+                            v-for="category in categoryList"
+                            :key="category.categoryId"
+                            @click.stop="selectCategory(category)"
+                        >
+                            <div class="text">{{ category.categoryName }}</div>
+                            <SvgIcon
+                                v-if="category.selected"
+                                name="check"
+                                size="16"
+                            />
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="other-filters-mutiselect">
                 <div class="other-filters-mutiselect-input">
-                    <div class="other-filters-title">全职</div>
+                    <div
+                        class="other-filters-title"
+                        :style="selectedSalaryName && { color: '#00bebd' }"
+                    >
+                        {{ selectedSalaryName || "薪资排序" }}
+                    </div>
                 </div>
-                <div class="other-filters-mutiselect-box" style="display: none">
+                <div class="other-filters-mutiselect-box">
                     <ul class="other-filters-mutiselect-select">
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">不限</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item active">
-                            <div class="text">全职</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">兼职</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">实习</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="other-filters-mutiselect">
-                <div class="other-filters-mutiselect-input">
-                    <div class="other-filters-title">工作年限</div>
-                </div>
-                <div class="other-filters-mutiselect-box" style="display: none">
-                    <ul class="other-filters-mutiselect-select">
-                        <li class="other-filters-mutiselect-select-item active">
-                            <div class="text">不限</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">在校生/应届生</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">3年以上</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">无需经验</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="other-filters-mutiselect">
-                <div class="other-filters-mutiselect-input">
-                    <div class="other-filters-title">薪资范围</div>
-                </div>
-                <div class="other-filters-mutiselect-box" style="display: none">
-                    <ul class="other-filters-mutiselect-select">
-                        <li class="other-filters-mutiselect-select-item active">
-                            <div class="text">不限</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">2千以下</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">2-3千</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">3-5千</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">5-6千</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">6-8千</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">0.8-1万</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">1-1.5万</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="other-filters-mutiselect">
-                <div class="other-filters-mutiselect-input">
-                    <div class="other-filters-title">公司行业</div>
-                </div>
-                <div class="other-filters-mutiselect-box" style="display: none">
-                    <ul class="other-filters-mutiselect-select">
-                        <li class="other-filters-mutiselect-select-item active">
-                            <div class="text">不限</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">计算机软件</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">电子技术/半导体/集成电路</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">金融/投资/证券</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">贸易/进出口</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">
-                                快速消费品(食品、饮料、化妆品)
-                            </div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">服装/纺织/皮革</div>
-                        </li>
-                        <li class="other-filters-mutiselect-select-item">
-                            <div class="text">
-                                专业服务(咨询、人力资源、财会)
-                            </div>
+                        <li
+                            class="other-filters-mutiselect-select-item"
+                            v-for="salary in salaryList"
+                            :key="salary.salaryId"
+                            @click.stop="selectSalaryOption(salary)"
+                        >
+                            <div class="text">{{ salary.salaryName }}</div>
+                            <SvgIcon
+                                v-if="salary.selected"
+                                name="check"
+                                size="16"
+                            />
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="other-filters-clear">清空筛选条件</div>
+        <div class="other-filters-clear" @click="clearSelections">
+            清空筛选条件
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted, ref } from "vue";
+import { getCategoryList } from "../../api/jobs";
+
+const props = defineProps({
+    category: {
+        type: Number,
+        default: undefined,
+    },
+});
+
+interface Categorization {
+    categoryId: number;
+    categoryName: string;
+    description: string;
+    selected?: boolean;
+}
+
+interface SalaryList {
+    salaryId: string;
+    salaryName: string;
+    selected?: boolean;
+}
+
+const emit = defineEmits(["updatedFilter"]);
+
+const categoryList = ref<Categorization[]>([]);
+const salaryList = ref<SalaryList[]>([
+    {
+        salaryId: "salaryUp",
+        salaryName: "由低至高",
+        selected: false,
+    },
+    {
+        salaryId: "salaryDown",
+        salaryName: "由高至低",
+        selected: false,
+    },
+]);
+
+const getCategory = async () => {
+    const { data } = await getCategoryList();
+    data.unshift({
+        categoryId: 0,
+        categoryName: "不限",
+        description: "",
+        selected: false,
+    });
+    categoryList.value.push(...data);
+};
+
+const selectCategory = (category: Categorization) => {
+    categoryList.value.forEach((cat) => (cat.selected = false));
+    category.selected = !category.selected;
+    emit("updatedFilter", { categoryId: category.categoryId });
+};
+
+const selectSalaryOption = (option: SalaryList) => {
+    salaryList.value.forEach((cat) => (cat.selected = false));
+    option.selected = !option.selected;
+    emit("updatedFilter", { salaryId: option.salaryId });
+};
+
+const clearSelections = () => {
+    categoryList.value.forEach((category) => (category.selected = false));
+    salaryList.value.forEach((salary) => (salary.selected = false));
+    emit("updatedFilter", { categoryId: 0, salaryId: "salaryUp" });
+};
+
+const selectedCategoryName = computed(() => {
+    const selectedCategory = categoryList.value.find((cat) => cat.selected);
+    return selectedCategory ? selectedCategory.categoryName : "";
+});
+
+const selectedSalaryName = computed(() => {
+    const selectedSalary = salaryList.value.find((cat) => cat.selected);
+    return selectedSalary ? selectedSalary.salaryName : "";
+});
+
+onMounted(async () => {
+    await getCategory();
+    if (props.category !== undefined) {
+        const defaultCategory = categoryList.value.find(
+            (cat) => cat.categoryId === props.category
+        );
+        if (defaultCategory) {
+            selectCategory(defaultCategory);
+        }
+    }
+});
 </script>
 
 <style scoped lang="scss">
@@ -192,7 +201,10 @@
                     font-size: 14px;
                     font-weight: 400;
                     height: 32px;
-                    padding-left: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 2px 8px;
                 }
 
                 .other-filters-icon {
@@ -204,6 +216,7 @@
             }
 
             .other-filters-mutiselect-box {
+                display: none;
                 padding-top: 8px;
                 position: absolute;
                 z-index: 10;
@@ -214,7 +227,7 @@
                     border-radius: 12px;
                     padding: 8px 5px;
                     width: 192px;
-                    max-height: 400px;
+                    max-height: 200px;
                     overflow: auto;
 
                     .other-filters-mutiselect-select-item {
@@ -223,6 +236,7 @@
                         color: #222;
                         cursor: pointer;
                         display: flex;
+                        align-items: center;
                         font-size: 14px;
                         font-weight: 400;
                         height: 36px;

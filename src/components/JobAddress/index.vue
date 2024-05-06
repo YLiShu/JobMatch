@@ -122,7 +122,7 @@ defineProps({
                 justify-content: flex-end;
                 display: flex;
                 flex-direction: column;
-                width: calc(100% - 48px);
+                width: calc(100% - 63px);
 
                 .job-company-name {
                     font-weight: 700;

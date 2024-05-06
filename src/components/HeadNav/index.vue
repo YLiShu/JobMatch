@@ -52,6 +52,7 @@
                     <div class="user-name" @click="gotoResume">
                         {{ userName }}
                     </div>
+                    <div class="logout-btn" @click="handleLogOut">退出登录</div>
                 </div>
             </div>
         </div>
@@ -72,6 +73,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { ElMessageBox } from "element-plus";
 import LoginDialog from "../LoginDialog/index.vue";
 import RegisterDialog from "../RegisterDialog/index.vue";
 import messageHelper from "../../utils/tools/message";
@@ -157,6 +159,18 @@ const uploadAvatar = async (event: Event) => {
         console.error(error);
         messageHelper.error("上传过程中发生错误。");
     }
+};
+
+const handleLogOut = () => {
+    ElMessageBox.confirm("确定要退出登录吗？", "退出登录", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+    })
+        .then(() => {
+            userStore.logOut();
+        })
+        .catch(() => {});
 };
 </script>
 
@@ -272,10 +286,6 @@ const uploadAvatar = async (event: Event) => {
             align-items: center;
             cursor: pointer;
 
-            &:hover .user-name {
-                color: #00bebd;
-            }
-
             .user-avatar {
                 border-radius: 50%;
                 width: 35px;
@@ -295,7 +305,40 @@ const uploadAvatar = async (event: Event) => {
                 font-size: 14px;
                 font-weight: 700;
             }
+
+            &:hover {
+                .logout-btn {
+                    opacity: 1;
+                    background-image: linear-gradient(
+                        to right,
+                        #ff416c,
+                        #ff4b2b
+                    );
+                }
+
+                .user-name {
+                    color: #00bebd;
+                }
+            }
+            .logout-btn {
+                margin-left: 15px;
+                align-items: center;
+                border: 1px solid #c10808;
+                border-radius: 8px;
+                color: #fff;
+                background: #c10808;
+                cursor: pointer;
+                font-size: 14px;
+                height: 36px;
+                font-weight: 700;
+                justify-content: center;
+                width: 100px;
+                display: flex;
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
         }
     }
 }
 </style>
+

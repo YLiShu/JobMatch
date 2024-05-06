@@ -9,7 +9,10 @@
                     <SearchForm :modelValue="keyWord" />
                 </div>
                 <div class="other-filters-container">
-                    <!-- <OtherFilters /> -->
+                    <OtherFilters
+                        @updatedFilter="handleFilterUpdate"
+                        :category="category ? +category : undefined"
+                    />
                 </div>
             </div>
         </div>
@@ -17,7 +20,7 @@
             <SearchList
                 types="search"
                 :keyWord="keyWord"
-                :category="category ? +category : 0"
+                :filterSettings="filterSettings"
             />
         </div>
         <div class="footer">
@@ -35,7 +38,7 @@ import Footer from "../../components/Footer/index.vue";
 import SideBar from "../../components/SideBar/index.vue";
 import SearchList from "../../components/SearchList/index.vue";
 import SearchForm from "../../components/SearchForm/index.vue";
-// import OtherFilters from "../../components/OtherFilters/index.vue";
+import OtherFilters from "../../components/OtherFilters/index.vue";
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
@@ -68,6 +71,15 @@ const backUpHandler = () => {
             behavior: "smooth",
         });
     }
+};
+
+const filterSettings = ref({ categoryId: 0, salaryId: "" });
+
+const handleFilterUpdate = (filters: {
+    categoryId: number;
+    salaryId: string;
+}) => {
+    filterSettings.value = { ...filterSettings.value, ...filters };
 };
 
 onMounted(() => {
