@@ -1,3 +1,5 @@
+import { id } from "element-plus/es/locale";
+
 /* 登录接口参数类型 */
 export interface LoginData {
     username: string;
@@ -158,4 +160,49 @@ export interface uploadFaceResponse {
         faceImage: string | null;
         faceImageBig: string | null;
     };
+}
+
+/* 好友列表接口返回值类型 */
+export interface FriendsList {
+    code: number;
+    data: {
+        hr:{
+            friendUserId: number; // 好友用户ID
+            mobile: string; // 手机号码
+            friendFaceImage: string | null; // 好友头像图片
+            friendNickname: string | null; // 好友昵称
+        };
+        user:{
+            friendUserId: number; // 好友用户ID
+            mobile: string; // 手机号码
+            friendFaceImage: string | null; // 好友头像图片
+            friendNickname: string | null; // 好友昵称
+        };
+    };
+    msg: string;
+}
+
+/* 用户信息接口参数类型 */
+export interface userId {
+    userId:number;
+}
+
+export interface acceptUserId {
+    acceptUserId:number;
+}
+
+/* 未签收消息接口返回值类型 */
+export interface UnsignedMsg{
+    code: number;
+    msg: string;
+    data:[
+        {
+            id: number;
+            sendUserId:number;
+            acceptUserId:number;
+            msg:string;
+            signFlag:number;
+            createTime:string;
+        }
+    ];
 }

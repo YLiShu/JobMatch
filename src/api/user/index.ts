@@ -7,6 +7,10 @@ import type {
     RegisterData,
     RegisterResult,
     UserInfoResponse,
+    FriendsList,
+    userId,
+    UnsignedMsg,
+    acceptUserId,
     uploadFaceData,
     uploadFaceResponse,
 } from "./types";
@@ -27,6 +31,12 @@ export const getCaptchaCode = (data: CaptchaData) => {
     return http.get<CaptchaResult>("code/getCaptchaCode", data);
 };
 
+export const getFriends = (data: userId) => {
+    return http.get<FriendsList>("/queryFriendList",data);
+};
+
+export const getUnsignedMsg = (data: acceptUserId) => {
+    return http.get<UnsignedMsg>("/queryUnsignedMsg",data);
 export const uploadFaceBase64 = (data: uploadFaceData) => {
     return http.post<uploadFaceResponse>("/uploadFaceBase64", data);
 };
