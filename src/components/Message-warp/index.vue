@@ -412,6 +412,7 @@ onMounted(() => {
                             display: inline-block;
                             max-width: 420px;
                             padding: 8px 12px;
+                            margin-right: 20px;
                             vertical-align: top;
                             word-break: break-all;
                             border-radius: 8px;
@@ -442,6 +443,7 @@ onMounted(() => {
                             display: inline-block;
                             max-width: 420px;
                             padding: 8px 12px;
+                            margin-left: 20px;
                             vertical-align: top;
                             word-break: break-all;
                             border-radius: 8px;
