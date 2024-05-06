@@ -4,16 +4,16 @@
             <div class="head-nav">
                 <HeadNav :isFixed="isScroll" />
             </div>
-            <div class="recommend-bar" :class="{ 'fixed-top': isScroll }">
+            <!-- <div class="recommend-bar" :class="{ 'fixed-top': isScroll }">
                 <ExpectJob />
                 <JobArea />
                 <div class="other-filters-container">
                     <OtherFilters />
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="content">
-            <SearchList />
+            <SearchList types="recommend" />
         </div>
         <div class="footer">
             <Footer />
@@ -29,9 +29,9 @@ import HeadNav from "../../components/HeadNav/index.vue";
 import Footer from "../../components/Footer/index.vue";
 import SideBar from "../../components/SideBar/index.vue";
 import SearchList from "../../components/SearchList/index.vue";
-import ExpectJob from "../../components/ExpectJob/index.vue";
-import JobArea from "../../components/JobArea/index.vue";
-import OtherFilters from "../../components/OtherFilters/index.vue";
+// import ExpectJob from "../../components/ExpectJob/index.vue";
+// import JobArea from "../../components/JobArea/index.vue";
+// import OtherFilters from "../../components/OtherFilters/index.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 
 const isScroll = ref<boolean>(false);
@@ -39,7 +39,7 @@ const containerRef = ref<HTMLElement | null>(null);
 const handleScroll = () => {
     if (containerRef.value) {
         const top = containerRef.value.scrollTop;
-        isScroll.value = top > 240;
+        isScroll.value = top > 150;
     }
 };
 

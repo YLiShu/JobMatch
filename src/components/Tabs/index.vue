@@ -9,7 +9,7 @@
                     @click="() => emitChangeTab(index)"
                     class="tab_item"
                 >
-                    {{ tab.title }}
+                    {{ tab.categoryName }}
                     <transition name="underline">
                         <div
                             class="underline"

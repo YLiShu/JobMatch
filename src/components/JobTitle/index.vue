@@ -2,10 +2,10 @@
     <div class="job-title">
         <div class="job-title-left">
             <div class="job-title-left-top">
-                <div class="job">亚马逊产品开发岗实习生</div>
-                <div class="salary">3.3-4千</div>
+                <div class="job">{{ content.title }}</div>
+                <div class="salary">{{ content.salary }}</div>
             </div>
-            <div class="job-title-left-center">
+            <!-- <div class="job-title-left-center">
                 <div
                     class="item"
                     v-for="(jobInfoTag, index) in jobInfoTags"
@@ -15,48 +15,78 @@
                         jobInfoTag.content
                     }}</span>
                 </div>
-            </div>
+            </div> -->
             <div class="job-title-left-bottom">
-                <div class="tag">专业培训</div>
-                <div class="tag">员工旅游</div>
-                <div class="tag">假日福利</div>
-                <div class="tag">下午茶零食</div>
+                <div
+                    class="tag"
+                    v-for="(jobInfoTag, index) in content.tags"
+                    :key="index"
+                >
+                    {{ jobInfoTag }}
+                </div>
             </div>
         </div>
         <div class="job-title-right">
-            <div class="collect job-title-right-btn">
+            <div
+                class="collect job-title-right-btn"
+                v-if="!isCollected"
+                @click="handleCollect"
+            >
                 <span>收藏</span>
             </div>
+            <div
+                class="active job-title-right-btn"
+                v-else
+                @click="handleCancelCollect"
+            >
+                <span>取消收藏</span>
+            </div>
             <div class="right-appload-btn job-title-right-btn">先聊聊</div>
-            <div class="delivery-btn job-title-right-btn">立即申请</div>
+            <div
+                class="delivery-btn job-title-right-btn"
+                v-if="!isDelivery"
+                @click="handleDelivery"
+            >
+                立即申请
+            </div>
+            <div class="active delivery-btn job-title-right-btn" v-else>
+                已申请
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-const jobInfoTags = ref([
-    {
-        img: "xxx",
-        content: "广州-天河区",
+defineProps({
+    content: {
+        type: Object,
+        required: true,
     },
-    {
-        img: "xxx",
-        content: "在校生/应届生",
+    isDelivery: {
+        type: Boolean,
+        required: true,
     },
-    {
-        img: "xxx",
-        content: "本科",
+    isCollected: {
+        type: Boolean,
+        required: true,
     },
-    {
-        img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAASVJREFUWEftlj1uwkAUhOcZgXIGpDSUGAnMT5ljQEUZQUmOkpQgSio4RkpCDBJQ0iDlDFEQHrQhBTEWuyCDKdbt25337byVZwUJf5Jwf1gA60CkA7PZsrAJ+AwgG9Ml/Uo70i8W8/Ow3hGAav6z5RjgQ0zN/2TkO5OSWhjiCODDX7yS7MTbfK8mIm9Vz3051I4CGJKsXwlgVPXchgWwDlgHrAN370Cyv+LEw0jNxyiOyRyBym/IABOIrE7kh3kcm4bQxJ+3AqKr1juCdsUr9Ez3nryEpiI3BZhOF96WrP2Hk6eAbO4dkAHA98N6SmRcKrm+7kDaR6lqvgn4qROKqqcdKesg7h9AnSx6BOqJhUdVJ7EOOxDbCC6x/pw92hGcI3bJWguwA6UCwiGQwxKcAAAAAElFTkSuQmCC",
-        content: "全职",
-    },
-    {
-        img: "xxx",
-        content: "更新于03-28",
-    },
+});
+const emit = defineEmits([
+    "collectedHandler",
+    "cancelCollectedHandler",
+    "deliveryHandler",
 ]);
+const handleCollect = () => {
+    emit("collectedHandler");
+};
+
+const handleCancelCollect = () => {
+    emit("cancelCollectedHandler");
+};
+
+const handleDelivery = () => {
+    emit("deliveryHandler");
+};
 </script>
 
 <style scoped lang="scss">
@@ -161,6 +191,11 @@ const jobInfoTags = ref([
             justify-content: center;
             margin-right: 12px;
             width: 130px;
+
+            &.active {
+                background: #3ec6c5;
+                color: #fff;
+            }
         }
     }
 }

@@ -1,15 +1,21 @@
 import { createApp } from "vue";
-import { createPinia } from "pinia";
 import App from "./App.vue";
+import { setupStore } from "./store/index";
 import router from "./router";
 import "element-plus/dist/index.css";
 import "./style.css";
 import { registerGlobalComponents } from "./global-components";
 
 const app = createApp(App);
-const pinia = createPinia();
+
+setupStore(app);
 registerGlobalComponents(app);
 
-app.use(pinia);
+router.beforeEach((to, from, next) => {
+  window.document.title = to.meta.title as string || 'Job Match!';
+  next();
+});
+
 app.use(router);
+
 app.mount("#app");

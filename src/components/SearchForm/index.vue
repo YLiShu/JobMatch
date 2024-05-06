@@ -2,17 +2,17 @@
     <div class="search-form">
         <form @submit.prevent="handleSearch">
             <div class="search-form-con">
-                <div class="position-sel" @click="handleShowWorkPlaceDialog">
+                <!-- <div class="position-sel" @click="handleShowWorkPlaceDialog">
                     <span class="label-text">
                         <b>{{ workPlaceTitle }}</b>
                         <SvgIcon name="position" size="14" />
                     </span>
-                </div>
+                </div> -->
                 <p class="ipt-wrap">
                     <input
                         type="text"
                         name="keyword"
-                        :keyword="keyword"
+                        v-model="keyword"
                         class="ipt-search"
                         maxlength="50"
                         autocomplete="off"
@@ -20,92 +20,61 @@
                     />
                 </p>
             </div>
-            <input
-                type="hidden"
-                name="industry"
-                class="industry-code"
-                value=""
-            />
             <button class="btn-search">搜索</button>
         </form>
     </div>
-    <WorkPlaceDialog
+    <!-- <WorkPlaceDialog
         :isShowWorkPlaceDialog="isShowWorkPlaceDialog"
         @closeWorkPlaceDialog="handleCloseWorkPlace"
         @confirmWorkPlaceDialog="handleConfirmWorkPlace"
-    />
+    /> -->
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import WorkPlaceDialog from "../WorkPlaceDialog/index.vue";
-const isShowWorkPlaceDialog = ref(false);
-const keyword = ref("");
-const workPlace = ref<any>([
-    {
-        title: "",
-        code: "",
-        value: "全国",
-        hasSubArea: "",
+import { ref } from "vue";
+import router from "../../router";
+// import WorkPlaceDialog from "../WorkPlaceDialog/index.vue";
+// const isShowWorkPlaceDialog = ref(false);
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: "",
     },
-]);
-
-const getCurrentCity = () => {
-    return new Promise((resolve, reject) => {
-        fetch(
-            "/location/location/ip?coor=bd09ll&ak=zvrhKoe2A1u8PMjJsSuE5GkeNL78mLXh"
-        )
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    reject("API 请求失败");
-                }
-            })
-            .then((data) => {
-                const { city, adcode } = data.content.address_detail;
-                const address = {
-                    value: city,
-                    code: adcode,
-                    title: "",
-                    hasSubArea: "",
-                };
-                resolve(address);
-            })
-            .catch((error) => {
-                reject(error);
-            });
-    });
-};
-
-onMounted(async () => {
-    try {
-        const city = await getCurrentCity();
-        workPlace.value = [city];
-    } catch (error) {
-        console.error("无法加载当前城市", error);
-    }
 });
-const handleShowWorkPlaceDialog = () => {
-    isShowWorkPlaceDialog.value = true;
-};
-const handleCloseWorkPlace = () => {
-    isShowWorkPlaceDialog.value = false;
-};
-const workPlaceTitle = computed(() => {
-    let title = "全国";
-    if (!workPlace.value.length) {
-        return title;
-    } else if (workPlace.value.length >= 2) {
-        title = `${workPlace.value[0].value}...(${workPlace.value.length})`;
-    } else {
-        title = workPlace.value[0].value;
-    }
-    return title;
-});
-const handleConfirmWorkPlace = (newWorkPlace: []) => {
-    workPlace.value = [...newWorkPlace];
-    handleCloseWorkPlace();
+const keyword = ref(props.modelValue);
+// const workPlace = ref<any>([
+//     {
+//         title: "",
+//         code: "",
+//         value: "全国",
+//         hasSubArea: "",
+//     },
+// ]);
+
+// const handleShowWorkPlaceDialog = () => {
+//     isShowWorkPlaceDialog.value = true;
+// };
+// const handleCloseWorkPlace = () => {
+//     isShowWorkPlaceDialog.value = false;
+// };
+// const workPlaceTitle = computed(() => {
+//     let title = "全国";
+//     if (!workPlace.value.length) {
+//         return title;
+//     } else if (workPlace.value.length >= 2) {
+//         title = `${workPlace.value[0].value}...(${workPlace.value.length})`;
+//     } else {
+//         title = workPlace.value[0].value;
+//     }
+//     return title;
+// });
+// const handleConfirmWorkPlace = (newWorkPlace: []) => {
+//     workPlace.value = [...newWorkPlace];
+//     handleCloseWorkPlace();
+// };
+
+const handleSearch = () => {
+    router.push(`/job-search?keyword=${keyword.value}`);
 };
 </script>
 

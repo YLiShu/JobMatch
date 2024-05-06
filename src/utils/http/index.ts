@@ -4,11 +4,13 @@ import axios, {
     AxiosRequestConfig,
     AxiosResponse,
 } from "axios";
-import { ElMessage, ElLoading } from "element-plus";
+import { ElLoading } from "element-plus";
+import messageHelper from "../tools/message";
+import { useUserStore } from "../../store/modules/user";
 
 const URL: string = import.meta.env.VITE_API_BASE_URL;
 enum RequestEnums {
-    TIMEOUT = 5000,
+    TIMEOUT = 15000,
     LOGINFAIL = 203, // 登录失败
     OVERDUE = 401, // 登录失效
     SUCCESS = 200, // 请求成功
@@ -36,11 +38,11 @@ class JMHttp {
         this.axiosInstance.interceptors.request.use(
             (config) => {
                 this.showLoading();
-                const token = localStorage.getItem("TOKEN_KEY") || "";
+                const userStore = useUserStore();
+                const token = userStore.token;
                 if (token) {
                     config.headers["Authorization"] = token;
                 }
-                config.headers["Content-Type"] = "application/json";
                 return config;
             },
             (error: AxiosError) => {
@@ -100,18 +102,16 @@ class JMHttp {
     }
 
     private handleErrorResponse(data: any): void {
+        const userStore = useUserStore();
         const { code } = data;
 
         switch (code) {
             case RequestEnums.LOGINFAIL:
-                localStorage.removeItem("TOKEN_KEY");
+                userStore.logOut();
                 this.showError(data.msg);
                 break;
             case RequestEnums.OVERDUE:
-                localStorage.setItem("TOKEN_KEY", "");
-                // router.replace({
-                //     path: '/login'
-                // })
+                userStore.logOut();
                 this.showError(data.msg);
                 break;
             default:
@@ -122,9 +122,6 @@ class JMHttp {
 
     private handleNetworkError(): void {
         this.showError("网络连接失败，请检查网络后重试");
-        // router.replace({
-        //     path: '/404'
-        // })
     }
 
     private showLoading(): void {
@@ -141,7 +138,7 @@ class JMHttp {
     }
 
     private showError(msg: string): void {
-        ElMessage.error(msg);
+        messageHelper.error(msg);
     }
 
     public get<T>(url: string, params?: object): Promise<T> {

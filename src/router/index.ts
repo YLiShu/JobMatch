@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { useUserStore } from "../store/modules/user";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -24,7 +25,23 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/resume",
         name: "Resume",
-        component: () => import("../views/Resume/index.vue"),
+        component: () => import("../views/Resume/resume-view.vue"),
+        meta: {
+            title: "我的简历"
+        }
+    },
+    {
+        path: "/resume-edit",
+        name: "ResumeEdit",
+        component: () => import("../views/Resume/resume-edit.vue"),
+        meta: {
+            title: "编辑简历"
+        }
+    },
+    {
+        path: "/login",
+        name: "Login",
+        component: () => import("../views/Login/index.vue"),
     },
     {
         path: "/message",
@@ -36,6 +53,16 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+    const userStore = useUserStore();
+    const token = userStore.token;
+    if (!token && to.path !== "/login") {
+        next("/login");
+    } else {
+        next();
+    }
 });
 
 export default router;

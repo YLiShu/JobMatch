@@ -18,27 +18,22 @@
                 </div>
             </a>
         </div>
-        <div class="hot-enterprise-more">
+        <!-- <div class="hot-enterprise-more">
             <button class="hot-enterprise-btn" @click="navigateToEnterprise">
                 查看更多
             </button>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import router from "../../router";
 
 interface enterpriseList {
     src: string;
     linkTo: string;
     title: string;
 }
-
-const navigateToEnterprise = () => {
-    router.push("xxx");
-};
 
 const enterpriseList = ref<enterpriseList[]>([
     {
@@ -47,43 +42,43 @@ const enterpriseList = ref<enterpriseList[]>([
         title: "中国农业银行北京市分行",
     },
     {
-        src: "https://img01.51jobcdn.com/im/images/ads/39/38126/38125498/542-280PC2A02.jpg",
+        src: "https://portal-oss.zhiye.com/106482/image/ffea5b13-da42-4f7a-9a88-eb345381cd6f.png",
         linkTo: "https://cntp.zhiye.com/Campus",
         title: "中国太平保险集团有限责任公司",
     },
     {
-        src: "https://img01.51jobcdn.com/im/images/ads/39/38128/38127214/542-280PC2A01.jpg",
-        linkTo: "",
+        src: "https://job.icbc.com.cn/api/v1/chunkserver/TRM-default/_/MAtt1710138845683f1a4e570cfea43cba26c98e5954a33c9.jpg",
+        linkTo: "https://job.icbc.com.cn/pc/index.html#/main/home",
         title: "工行业务研发中心2024春季招聘",
     },
     {
-        src: "https://img01.51jobcdn.com/im/images/ads/39/38125/38124860/jsnx.jpg",
-        linkTo: "",
+        src: "https://fend.cmct22.com/2024/hy/022814/images/banner.png",
+        linkTo: "https://fend.cmct22.com/2024/hy/022814/p1.html",
         title: "江苏辖区农商银行2024春季招聘",
     },
     {
-        src: "https://img01.51jobcdn.com/im/images/ads/39/38126/38125345/542-280PC2A04.jpg",
-        linkTo: "",
+        src: "https://3treesgroup.zhaopin.com/images/banner.jpg",
+        linkTo: "https://3treesgroup.zhaopin.com/SeniorSchoolmates.html",
         title: "三棵树2024春季校园招聘",
     },
     {
         src: "https://img01.51jobcdn.com/im/images/ads/39/38126/38125042/38125042.jpg",
-        linkTo: "",
+        linkTo: "https://hxb.hotjob.cn/",
         title: "华夏银行2024春季校园招聘",
     },
     {
         src: "https://img01.51jobcdn.com/im/images/ads/39/38123/38122966/38122966.jpg",
-        linkTo: "",
+        linkTo: "https://wecruit.hotjob.cn/SU63eed9fd2f9d246c468eb43d/pb/school.html",
         title: "北方集成电路技术创新中心",
     },
     {
         src: "https://img01.51jobcdn.com/im/images/ads/39/38127/38126386/542-280PC2A02.jpg",
-        linkTo: "",
+        linkTo: "https://jobs.jnj.com/cn/%E5%B7%A5%E4%BD%9C/",
         title: "强生（中国）投资有限公司",
     },
     {
         src: "https://img01.51jobcdn.com/im/images/ads/39/38127/38126441/542-280PC2A.jpg",
-        linkTo: "",
+        linkTo: "https://www.hmnsmart.com/join-us.html",
         title: "华海智汇技术有限公司",
     },
     {

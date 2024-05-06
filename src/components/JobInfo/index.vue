@@ -1,18 +1,14 @@
 <template>
     <div class="job-info">
-        <h3 class="job-info-title">{{ title }}</h3>
-        <div class="job-info-text">{{ content }}</div>
+        <h3 class="job-info-title">{{ content.title }}</h3>
+        <div class="job-info-text">{{ content.content }}</div>
     </div>
 </template>
 
 <script setup lang="ts">
 defineProps({
     content: {
-        type: String,
-        required: true,
-    },
-    title: {
-        type: String,
+        type: Object,
         required: true,
     },
 });
