@@ -225,6 +225,10 @@ const receiveMessage = (item: any) => {
         receiverId: item.acceptUserId,
         msg: item.msg
     })
+    send({
+        "action": 3,
+        "extend":item.id
+    })
 }
 
 
