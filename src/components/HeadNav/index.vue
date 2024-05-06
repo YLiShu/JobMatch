@@ -29,6 +29,14 @@
                                 >推荐职位</router-link
                             >
                         </li>
+                        <li
+                            class="nav-list-item"
+                            :class="{
+                                active: $route.path === '/message',
+                            }"
+                        >
+                            <router-link to="/message">消息</router-link>
+                        </li>
                         <!-- <li class="nav-list-item"><router-link to="/companies">公司</router-link></li> -->
                     </ul>
                 </nav>

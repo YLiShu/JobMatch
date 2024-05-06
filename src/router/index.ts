@@ -27,21 +27,26 @@ const routes: Array<RouteRecordRaw> = [
         name: "Resume",
         component: () => import("../views/Resume/resume-view.vue"),
         meta: {
-            title: "我的简历"
-        }
+            title: "我的简历",
+        },
     },
     {
         path: "/resume-edit",
         name: "ResumeEdit",
         component: () => import("../views/Resume/resume-edit.vue"),
         meta: {
-            title: "编辑简历"
-        }
+            title: "编辑简历",
+        },
     },
     {
         path: "/login",
         name: "Login",
         component: () => import("../views/Login/index.vue"),
+    },
+    {
+        path: "/message",
+        name: "Message",
+        component: () => import("../views/Message/index.vue"),
     },
 ];
 

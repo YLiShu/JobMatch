@@ -35,6 +35,7 @@ declare module 'vue' {
     JobTitle: typeof import('./src/components/JobTitle/index.vue')['default']
     Loading: typeof import('./src/components/Loading/index.vue')['default']
     LoginDialog: typeof import('./src/components/LoginDialog/index.vue')['default']
+    MessageWrap: typeof import('./src/components/MessageWrap/index.vue')['default']
     OtherFilters: typeof import('./src/components/OtherFilters/index.vue')['default']
     RecommendedPositions: typeof import('./src/components/RecommendedPositions/index.vue')['default']
     RegisterDialog: typeof import('./src/components/RegisterDialog/index.vue')['default']
