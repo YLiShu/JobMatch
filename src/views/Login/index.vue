@@ -2,15 +2,15 @@
     <div class="container" ref="containerRef">
         <LoginDialog
             v-if="isShowLoginDialog"
-            :isShowLoginDialog="isShowLoginDialog"
-            @loginSuccess="handleLoginSuccess"
-            @goToRegister="handleRegisterDialog"
+            :is-show-login-dialog="isShowLoginDialog"
+            @login-success="handleLoginSuccess"
+            @go-to-register="handleRegisterDialog"
         />
         <RegisterDialog
             v-if="isShowRegisterDialog"
-            :isShowRegisterDialog="isShowRegisterDialog"
-            @goToLogin="handleShowLoginDialog"
-            @closeRegisterDialog="handleCloseRegisterDialog"
+            :is-show-register-dialog="isShowRegisterDialog"
+            @go-to-login="handleShowLoginDialog"
+            @close-register-dialog="handleCloseRegisterDialog"
         />
     </div>
 </template>

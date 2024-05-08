@@ -2,7 +2,7 @@
     <div class="container" ref="containerRef">
         <div class="header">
             <div class="head-nav">
-                <HeadNav :isFixed="isScroll" />
+                <HeadNav :is-fixed="isScroll" />
             </div>
             <!-- <div class="recommend-bar" :class="{ 'fixed-top': isScroll }">
                 <ExpectJob />
@@ -19,7 +19,7 @@
             <Footer />
         </div>
         <div class="side-bar-container">
-            <SideBar :isShow="isScroll" @backUp="backUpHandler" />
+            <SideBar :is-show="isScroll" @back-up="backUpHandler" />
         </div>
     </div>
 </template>

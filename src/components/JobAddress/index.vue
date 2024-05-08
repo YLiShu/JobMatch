@@ -8,7 +8,7 @@
 
             <img
                 class="job-address-img"
-                src="https://iconfont.alicdn.com/p/illus_3d/file/2OEYpu98KSmI/b4943678-fba8-4ac2-b919-d9f71ec9982a.png?image_process=resize,l_1000"
+                src="../../assets/location.png"
                 alt=""
             />
         </div>

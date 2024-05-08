@@ -2,7 +2,7 @@
     <div class="resume-view">
         <div class="header">
             <div class="head-nav">
-                <HeadNav :isFixed="false" />
+                <HeadNav :is-fixed="false" />
             </div>
         </div>
         <div class="content">
@@ -17,7 +17,10 @@
                     </div>
                 </div>
                 <div class="control">
-                    <div class="header-right upload-button" @click="editeResume">
+                    <div
+                        class="header-right upload-button"
+                        @click="editeResume"
+                    >
                         <svg width="16" height="16">
                             <path
                                 class="icon"
@@ -28,8 +31,26 @@
                         </svg>
                         <span class="upload-text">编辑</span>
                     </div>
-                    <div class="header-right upload-button" @click="selectResume">
-                        <svg t="1714926132534" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1466" width="16" height="16"><path d="M1024 896v128H0v-320h128v192h768v-192h128v192zM576 234.688V768H448V234.688L213.312 469.312 128 384l384-384 384 384-85.312 85.312L576 234.688z" fill="#ffffff" p-id="1467" class="icon"></path></svg>
+                    <div
+                        class="header-right upload-button"
+                        @click="selectResume"
+                    >
+                        <svg
+                            t="1714926132534"
+                            viewBox="0 0 1024 1024"
+                            version="1.1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            p-id="1466"
+                            width="16"
+                            height="16"
+                        >
+                            <path
+                                d="M1024 896v128H0v-320h128v192h768v-192h128v192zM576 234.688V768H448V234.688L213.312 469.312 128 384l384-384 384 384-85.312 85.312L576 234.688z"
+                                fill="#ffffff"
+                                p-id="1467"
+                                class="icon"
+                            ></path>
+                        </svg>
                         <span class="upload-text">上传</span>
                     </div>
                 </div>
@@ -144,25 +165,25 @@ import Footer from "../../components/Footer/index.vue";
 import Loading from "../../components/Loading/index.vue";
 import { nextTick, onMounted, ref } from "vue";
 import axios from "axios";
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from "pinia";
 import { parseResume } from "../../api/resume/index";
 import colors from "./colorSys";
-import { useResumeStore } from '../../store/modules/Resume/resume';
-import { ResumeData } from '../../store/modules/Resume/type';
+import { useResumeStore } from "../../store/modules/Resume/resume";
+import { ResumeData } from "../../store/modules/Resume/type";
 import { useRouter } from "vue-router";
 
 let token = "";
 const uploader = ref<HTMLInputElement | null>(null);
 const resumeStore = useResumeStore();
 const {
-  basicInfoData, 
-  experienceData, 
-  ability, 
-  awards, 
-  tagsData,
-  lastUpdateTime
+    basicInfoData,
+    experienceData,
+    ability,
+    awards,
+    tagsData,
+    lastUpdateTime,
 } = storeToRefs(resumeStore);
-const {handleResumeData} = resumeStore;
+const { handleResumeData } = resumeStore;
 const loading = ref(false);
 const router = useRouter();
 
@@ -181,7 +202,7 @@ function selectResume() {
 
 function editeResume() {
     router.push({
-        name: "ResumeEdit"
+        name: "ResumeEdit",
     });
 }
 

@@ -7,6 +7,7 @@ import type {
     RegisterData,
     RegisterResult,
     UserInfoResponse,
+    connectRequestData,
     uploadFaceData,
     uploadFaceResponse,
 } from "./types";
@@ -32,9 +33,13 @@ export const uploadFaceBase64 = (data: uploadFaceData) => {
 };
 
 export const getUserResume = () => {
-    return http.get("/user/resume")
+    return http.get("/user/resume");
 };
 
 export const updateUserResume = (data: any) => {
     return http.post("/user/resume/update", data);
-}
+};
+
+export const sendConnectRequest = (data: connectRequestData) => {
+    return http.get<any>("/sendFriendRequest", data);
+};

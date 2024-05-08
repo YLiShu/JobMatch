@@ -41,7 +41,12 @@
             >
                 <span>取消收藏</span>
             </div>
-            <div class="right-appload-btn job-title-right-btn">先聊聊</div>
+            <div
+                class="right-appload-btn job-title-right-btn"
+                @click="handleChat"
+            >
+                先聊聊
+            </div>
             <div
                 class="delivery-btn job-title-right-btn"
                 v-if="!isDelivery"
@@ -75,6 +80,7 @@ const emit = defineEmits([
     "collectedHandler",
     "cancelCollectedHandler",
     "deliveryHandler",
+    "chatHandler",
 ]);
 const handleCollect = () => {
     emit("collectedHandler");
@@ -86,6 +92,10 @@ const handleCancelCollect = () => {
 
 const handleDelivery = () => {
     emit("deliveryHandler");
+};
+
+const handleChat = () => {
+    emit("chatHandler");
 };
 </script>
 

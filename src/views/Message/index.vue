@@ -2,7 +2,7 @@
     <div class="container" ref="containerRef">
         <div class="header">
             <div class="head-nav">
-                <HeadNav :isFixed="isScroll" />
+                <HeadNav :is-fixed="isScroll" />
             </div>
         </div>
         <div class="content">

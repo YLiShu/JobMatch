@@ -159,3 +159,8 @@ export interface uploadFaceResponse {
         faceImageBig: string | null;
     };
 }
+
+export interface connectRequestData {
+    myUserId: number;
+    friendId: number;
+}

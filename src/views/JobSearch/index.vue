@@ -2,15 +2,15 @@
     <div class="container" ref="containerRef">
         <div class="header">
             <div class="head-nav">
-                <HeadNav :isFixed="isScroll" />
+                <HeadNav :is-fixed="isScroll" />
             </div>
             <div class="job-search-bar" :class="{ 'fixed-top': isScroll }">
                 <div class="search-form-container">
-                    <SearchForm :modelValue="keyWord" />
+                    <SearchForm :model-value="keyWord" />
                 </div>
                 <div class="other-filters-container">
                     <OtherFilters
-                        @updatedFilter="handleFilterUpdate"
+                        @updated-filter="handleFilterUpdate"
                         :category="category ? +category : undefined"
                     />
                 </div>
@@ -19,15 +19,15 @@
         <div class="content">
             <SearchList
                 types="search"
-                :keyWord="keyWord"
-                :filterSettings="filterSettings"
+                :key-word="keyWord"
+                :filter-settings="filterSettings"
             />
         </div>
         <div class="footer">
             <Footer />
         </div>
         <div class="side-bar-container">
-            <SideBar :isShow="isScroll" @backUp="backUpHandler" />
+            <SideBar :is-show="isScroll" @back-up="backUpHandler" />
         </div>
     </div>
 </template>

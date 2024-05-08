@@ -2,7 +2,7 @@
     <div class="edit-page">
         <div class="header">
             <div class="head-nav">
-                <HeadNav :isFixed="false" />
+                <HeadNav :is-fixed="false" />
             </div>
         </div>
         <div class="editor">

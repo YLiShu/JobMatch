@@ -2,16 +2,17 @@
     <div class="container" ref="containerRef">
         <div class="header">
             <div class="head-nav">
-                <HeadNav :isFixed="isScroll" />
+                <HeadNav :is-fixed="isScroll" />
             </div>
             <div class="job-title-container">
                 <JobTitle
                     :content="jobTitleContent"
-                    :isCollected="isCollected"
-                    :isDelivery="isDelivery"
-                    @collectedHandler="collectedHandler"
-                    @cancelCollectedHandler="cancelCollectedHandler"
-                    @deliveryHandler="deliveryHandler"
+                    :is-collected="isCollected"
+                    :is-delivery="isDelivery"
+                    @collected-handler="collectedHandler"
+                    @cancel-collected-handler="cancelCollectedHandler"
+                    @delivery-handler="deliveryHandler"
+                    @chat-handler="chatHandler"
                 />
             </div>
         </div>
@@ -33,7 +34,7 @@
             <Footer />
         </div>
         <div class="side-bar-container">
-            <SideBar :isShow="isScroll" @backUp="backUpHandler" />
+            <SideBar :is-show="isScroll" @back-up="backUpHandler" />
         </div>
     </div>
 </template>
@@ -57,6 +58,9 @@ import {
 } from "../../api/jobs";
 import messageHelper from "../../utils/tools/message";
 import { useRoute } from "vue-router";
+import { sendConnectRequest } from "../../api/user";
+import { useUserStore } from "../../store/modules/user";
+import router from "../../router";
 
 interface JobTitleContent {
     title: string | null;
@@ -89,6 +93,10 @@ const isDelivery = ref<boolean>(false);
 
 const route = useRoute();
 const positionId = route.query.positionId as string;
+
+const userStore = useUserStore();
+
+const hrId = ref<number>();
 
 const jobTitleContent = ref<JobTitleContent>({
     title: "",
@@ -155,6 +163,7 @@ const getJobDetail = async () => {
                 tags: [],
                 description: data.company.description,
             };
+            hrId.value = data.positionHr.hrId;
         }
     } catch (error) {
         console.error(error);
@@ -200,6 +209,14 @@ const deliveryHandler = async () => {
         console.error(error);
         messageHelper.error("投递失败！");
     }
+};
+const chatHandler = async () => {
+    const params = {
+        myUserId: userStore.userInfo!.user.userId,
+        friendId: hrId.value!,
+    };
+    const response = await sendConnectRequest(params);
+    router.push(`/message?id=${hrId.value}`);
 };
 
 const handleScroll = () => {
